@@ -49,7 +49,7 @@ def process(source,root='.',output='result',work='work/jobs',concurrency=4,budge
         selected_path=directory/'selected_findings.json'
         if selected_path.exists():findings=read_json(selected_path)
         else:
-            selected=set(choice['ids']);findings={**findings,'diseases':[d for d in findings['diseases'] if d['id'] in selected]}
+            selected=set(choice['ids']);findings={**findings,'diseases':choice.get('rows',[d for d in findings['diseases'] if d['id'] in selected])}
         if 'history_status' not in findings:
             findings['history_status']=timed('history',lambda:match_history(model,doc,findings,directory/'history',concurrency));save_json(selected_path,findings)
         report_path=directory/'analysis.json'

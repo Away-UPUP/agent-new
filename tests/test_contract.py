@@ -12,6 +12,41 @@ from unittest.mock import patch
 from bridge_agent.model import Model
 
 class ContractTests(unittest.TestCase):
+    def test_grouped_summary_rejects_invented_totals_and_keeps_all_members(self):
+        from bridge_agent.selection import materialize_group
+        group=[{'id':f'D{i}','source':f'B{i}','part':'箱梁','kind':'裂缝','description':f'位置{i}裂缝W=0.1mm'} for i in range(1,5)]
+        spec={'part':'左幅主桥箱梁','kind':'裂缝','summary_source':'B9','summary_quote':'存在4条裂缝','example_ids':['D1','D2']}
+        got=materialize_group(spec,group,{'B9':{'text':'左幅主桥存在4条裂缝'}})
+        self.assertEqual(got['member_count'],4);self.assertEqual(got['member_ids'],['D1','D2','D3','D4']);self.assertIn('B4',got['sources']);self.assertIn('存在4条裂缝',got['description'])
+        spec['summary_quote']='存在5条裂缝'
+        with self.assertRaises(ValueError):materialize_group(spec,group,{'B9':{'text':'左幅主桥存在4条裂缝'}})
+    def test_small_structured_ledger_survives_model_omission(self):
+        from bridge_agent.extraction import structured_candidates
+        b={'id':'B000001','kind':'row','row':2,'table':1,'section':'检测','table_context':'左幅主桥','header':['病害位置','病害类型','病害描述'],'cells':['箱梁','裂缝','L=1m,W=0.1mm'],'text':'箱梁|裂缝|L=1m,W=0.1mm'}
+        doc={'filename':'x.docx','tables':[[b['header'],b['cells']]],'blocks':[b]}
+        def no_diseases(*args):return {k:[] for k in FINDINGS['properties']}
+        with tempfile.TemporaryDirectory() as td,patch('bridge_agent.extraction.extract_batch',side_effect=no_diseases):
+            got=extract_all(None,doc,Path(td));self.assertEqual(len(got['diseases']),1);self.assertEqual(got['diseases'][0]['table_context'],'左幅主桥')
+    def test_unknown_history_can_omit_empty_quote_without_crashing(self):
+        from bridge_agent.history import match_history
+        class FakeModel:
+            def call(self,*args,**kwargs):
+                return {'tool_calls':[{'function':{'arguments':json.dumps({'matches':[{'id':'D1','new':'无法判断','previous':'无','development':'无','sources':[]}]})}}]}
+        doc={'blocks':[{'id':'B1','section':'历年对比','kind':'paragraph','text':'历史未提供详细位置'}]};findings={'history_notes':[],'diseases':[{'id':'D1','source':'B2','part':'1#墩','kind':'裂缝','description':'裂缝'}]}
+        with tempfile.TemporaryDirectory() as td:
+            got=match_history(FakeModel(),doc,findings,Path(td));self.assertEqual(got['matched'],0);self.assertEqual(findings['diseases'][0]['history_quote'],'')
+    def test_rating_table_does_not_duplicate_detailed_diseases(self):
+        bs=[{'id':'B000001','kind':'row','row':2,'table':1,'section':'检测','header':['病害位置','病害类型','病害描述'],'cells':['桥墩','涂层剥落','墩身涂层剥落'],'text':'墩身涂层剥落'}, {'id':'B000002','kind':'row','row':2,'table':2,'section':'养护建议','header':['部位','损坏类型','扣分值'],'cells':['墩身','涂层剥落','12'],'text':'墩身|涂层剥落|12'}]
+        doc={'filename':'x.docx','tables':[[bs[0]['header'],bs[0]['cells']],[bs[1]['header'],bs[1]['cells']]],'blocks':bs}
+        def fake(*args):
+            data={k:[] for k in FINDINGS['properties']};data['diseases']=[{'source':'B000002','part':'墩身','kind':'涂层剥落','description':'涂层剥落','history_sources':[]}];return data
+        with tempfile.TemporaryDirectory() as td,patch('bridge_agent.extraction.extract_batch',side_effect=fake):
+            got=extract_all(None,doc,Path(td));self.assertEqual(len(got['diseases']),1);self.assertEqual(got['diseases'][0]['source'],'B000001')
+    def test_caption_scope_persists_across_chunk_boundaries(self):
+        from bridge_agent.extraction import pack_blocks
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);p=root/'scope.docx';d=Document();d.add_paragraph('表6.1-2 左幅主桥箱梁外检查结果');t=d.add_table(rows=2,cols=2);t.cell(0,0).text='位置';t.cell(0,1).text='病害';t.cell(1,0).text='第9跨';t.cell(1,1).text='露筋';d.save(p)
+            doc=parse(p,root/'cache');last=doc['blocks'][-1];self.assertIn('左幅主桥',last['table_context']);self.assertIn('左幅主桥',json.dumps(pack_blocks([last]),ensure_ascii=False))
     def test_main_bridge_overview_preserves_approach_facts_and_precision(self):
         basic={k:{'value':'无','sources':[]} for k in FIELDS[:12]};basic['总体评分']['value']='主桥70.80；引桥74.00';basic['上一次总体评分']['value']='主桥74；引桥68.6';basic['总体等级']['value']='主桥二类；引桥二类'
         report={'basic':basic,'has_history':True,'recommendation_ids':[],'trend':{'text':'趋势'},'overall':{'text':'结论'},'risks':{'text':'风险'},'conclusion':[],'causes':[],'safety':[]};findings={'recommendations':[],'diseases':[]}

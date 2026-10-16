@@ -6,7 +6,7 @@ from lxml import etree, html
 
 NS = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
 W = '{'+NS['w']+'}'
-PARSER_VERSION = 4
+PARSER_VERSION = 5
 
 def digest(path):
     h = hashlib.sha256()
@@ -173,6 +173,16 @@ def parse(path, cache):
             for name in z.namelist():
                 if re.match(r'word/(header|footer)\d+\.xml$',name):
                     for el in etree.fromstring(z.read(name)).findall('.//w:p',NS):add(txt(el),kind='header_footer',part=name)
+    # A caption carries the main/approach bridge and left/right scope across chunk boundaries.
+    contexts={}
+    for i,b in enumerate(blocks):
+        if b.get('kind')=='row':
+            tid=b['table']
+            if tid not in contexts:
+                before=[x['text'] for x in blocks[max(0,i-5):i] if x.get('kind')=='paragraph']
+                captions=[t for t in before if re.match(r'^表\s*[\d一二三四五六七八九十]',t)]
+                contexts[tid]=captions[-1] if captions else b['section']
+            b['table_context']=contexts[tid]
     if not blocks: raise ValueError('No readable text; OCR required: '+path.name)
     data={'parser_version':PARSER_VERSION,'sha256':sha,'filename':path.name,'format':fmt,'backend':'antiword-text-tables' if isinstance(book,str) else 'antiword-docbook' if book is not None else 'html' if fmt=='html' else 'ooxml','pages_metadata':pages,'images':images,'paragraphs':paragraphs,'table_count':len(tables),'chars':sum(len(b['text']) for b in blocks),'blocks':blocks,'tables':tables,'parse_seconds':round(time.monotonic()-start,3),'locator':'paragraph/table/row in parsed export; page metadata is not a precise citation'}
     save_json(output,data);return data
@@ -190,6 +200,6 @@ def search(blocks, query, limit=12, max_chars=18000):
 
 def compact(block):
     out={'id':block['id'],'section':block['section']}
-    if block.get('kind')=='row':out.update(cells=block['cells'],header=block['header'],table=block['table'],row=block['row'])
+    if block.get('kind')=='row':out.update(cells=block['cells'],header=block['header'],table=block['table'],row=block['row'],table_context=block.get('table_context',''))
     else:out['text']=block['text']
     return out

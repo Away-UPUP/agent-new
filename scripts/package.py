@@ -13,7 +13,7 @@ def build(root):
   entries.append((root/name,'code/'+name))
  for name in ['DESIGN.md','开发文档.md','VALIDATION.md','PERFORMANCE.md']:
   entries.append((root/name,'design/'+name))
- for pattern in ['audit_summary.json','label_patterns.json','training_pairs.json','test_inventory.json','acceptance_final*.json','performance*.json','upload_test.json','clean_package*.json','unit_tests.log']:
+ for pattern in ['audit_summary.json','label_patterns.json','training_pairs.json','test_inventory.json','acceptance_final*.json','performance*.json','upload_test.json','clean_package*.json','unit_tests.log','release_v*.json','clean_package_tests.log']:
   entries.extend((p,'design/validation/'+p.name) for p in (root/'artifacts').glob(pattern))
  entries.extend((p,'result/'+p.name) for p in (root/'result/交付样例').glob('*.docx'))
  if not entries or not list((root/'result/交付样例').glob('*.docx')):raise RuntimeError('No verified example reports; refusing empty result package')

@@ -43,6 +43,7 @@ def match_history(model, doc, findings, directory, concurrency=4):
                 if Counter(x['id'] for x in matches)!=Counter(d['id'] for d in group):raise ValueError('Each disease ID required exactly once')
                 index={b['id']:b for b in evidence}
                 for m in matches:
+                    m.setdefault('quote','')
                     if m['new'] not in ['是','否','无法判断']:raise ValueError('Invalid status')
                     if any(s not in evidence_ids for s in m['sources']):raise ValueError('Invalid comparison source')
                     if m['new'] in ['是','否']:
@@ -62,5 +63,5 @@ def match_history(model, doc, findings, directory, concurrency=4):
     for result in results:
         for m in result:
             d=disease_index[m['id']]
-            d.update(new=m['new'],previous=m['previous'],development=m['development'],history_sources=m['sources'],history_quote=m['quote'])
+            d.update(new=m['new'],previous=m['previous'],development=m['development'],history_sources=m['sources'],history_quote=m.get('quote',''))
     return {'status':'compared','matched':sum(bool(d.get('history_sources')) for d in findings['diseases']),'pending':len(pending),'pool_blocks':len(pool)}

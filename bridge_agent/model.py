@@ -19,7 +19,7 @@ class Model:
                 for line in p.read_text().splitlines():
                     r=json.loads(line)
                     if r.get('attempt')==3 and any('HTTP '+str(code) in r.get('error','') for code in [413,502,503,504]):self.split_requests.add(r['key'])
-        self.lock=threading.Lock();self.sem=threading.Semaphore(concurrency);self.records=[]
+        self.concurrency=concurrency;self.lock=threading.Lock();self.sem=threading.Semaphore(concurrency);self.records=[]
         self.client=httpx.Client(timeout=httpx.Timeout(240,connect=30),limits=httpx.Limits(max_connections=concurrency,max_keepalive_connections=concurrency))
 
     def call(self, messages, tools, choice='auto', max_tokens=6000, allow_split=False):
