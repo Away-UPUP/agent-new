@@ -97,15 +97,16 @@ def selection(model,doc,findings,path):
         evidence={b['id']:b for b in chosen.values()}
         style_instruction='本报告采用原文代表位置写法：summary_source与summary_quote必须为空；每组通常只选最先出现的1处，裂缝组可选最先出现的2处，另补特别严重例外。不要将多个位置拼成一段。' if style=='representative' else '本报告采用按构件及类型汇总数量的写法；优先逐字引用本次原文对应统计，并选最早的1-3个位置。'
         messages=[{'role':'system','content':'你是桥梁分析报告病害表编审。完整台账已保存，现在逐组整理汇总，禁止丢弃任一给定组。按表题明确左幅/右幅、主桥/引桥、箱梁内/外，part用宏观部位，不让示例中的第几跨代替整个分组。kind用标签的简洁病名。同组所有观测均保留关联，example_ids选本组最先出现的1-3项典型位置，优先保留最早项目及严重例外，不能使用其他组ID。若原文摘要中有精确对应同侧同构件同类型的数量，可summary_source和summary_quote逐字摘取该连续片段；不要把其他构件的计数混入，不要改写原文，不要引用历史数量。没有准确对应摘要就两个字段都空。程序恢复原文例子和计数，不要自行计算或编造总长度/面积。每个组ID必须返回一次，只调用organize_groups。'+style_instruction}, {'role':'user','content':json.dumps({'groups':items,'current_summary_sources':[{'id':b['id'],'section':b['section'],'context':b['summary_context'],'text':b['text']} for b in chosen.values()]},ensure_ascii=False)}]
-        for attempt in range(2):
+        for attempt in range(3):
             msg=model.call(messages,[SUMMARY],{'type':'function','function':{'name':'organize_groups'}},max_tokens=4500)
             try:
                 specs=json.loads(msg['tool_calls'][0]['function']['arguments'])['groups'];by_id={s['id']:s for s in specs}
                 if len(specs)!=len(items) or set(by_id)!={x['id'] for x in items}:raise ValueError('Every group must be returned exactly once')
                 return [materialize_group(by_id[x['id']],g,evidence) for x,g in zip(items,groups)]
             except (ValueError,KeyError,TypeError) as e:
-                if attempt:raise
+                if attempt==2:raise
                 messages.append(msg)
+                if not msg.get('tool_calls'):messages.append({'role':'user','content':'上次没有调用必需的工具，请调用 organize_groups 返回全部组/病害 ID 的结构化结果，禁止仅文字确认。'})
                 for c in msg.get('tool_calls',[]):messages.append({'role':'tool','tool_call_id':c['id'],'content':str(e)})
         raise RuntimeError('Group organization failed')
     with concurrent.futures.ThreadPoolExecutor(max_workers=model.concurrency) as executor:parts=list(executor.map(run,range(0,len(grouped),12)))

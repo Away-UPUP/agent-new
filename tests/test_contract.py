@@ -36,6 +36,19 @@ class ContractTests(unittest.TestCase):
         got=validate_findings(data,[{'id':'B1','text':source,'section':''}]);self.assertEqual(got['facts'][0]['quote'],source);self.assertTrue(got['facts'][0]['quote_reconstructed'])
         data['facts'][0].update(value='主桥93.2；引桥75.2',quote='改写')
         with self.assertRaises(ValueError):validate_findings(data,[{'id':'B1','text':source,'section':''}])
+    def test_group_organizer_repairs_plain_text_with_explicit_tool_instruction(self):
+        from bridge_agent.selection import selection
+        class FakeModel:
+            concurrency=1
+            def __init__(self):self.calls=0
+            def call(self,messages,*args,**kwargs):
+                self.calls+=1
+                if self.calls==1:return {'role':'assistant','content':'已整理'}
+                self.asserted='organize_groups' in messages[-1]['content']
+                return {'role':'assistant','tool_calls':[{'id':'c1','function':{'arguments':json.dumps({'groups':[{'id':'G0000','part':'桥墩','kind':'裂缝','summary_source':'','summary_quote':'','example_ids':['D0']}]})}}]}
+        doc={'filename':'未知测试桥.docx','blocks':[{'id':'B000001','kind':'row','table':1,'section':'检查','text':'裂缝'}]};findings={'facts':[],'diseases':[{'id':f'D{i}','source':'B000001','part':'桥墩','kind':'裂缝','description':f'位置{i}裂缝'} for i in range(81)]};model=FakeModel()
+        with tempfile.TemporaryDirectory() as td:
+            got=selection(model,doc,findings,Path(td)/'selection.json');self.assertEqual(model.calls,2);self.assertTrue(model.asserted);self.assertEqual(len(got['rows']),1);self.assertEqual(got['rows'][0]['description'],'位置0裂缝')
     def test_style_profile_uses_other_year_and_excludes_validation_labels(self):
         from bridge_agent.selection import writing_style
         a,p=writing_style({'filename':'2、马桑溪大桥.docx'},{'facts':[{'field':'报告日期','value':'2018年12月31日'}]});self.assertEqual(a,'representative');self.assertEqual(p['year'],2017)

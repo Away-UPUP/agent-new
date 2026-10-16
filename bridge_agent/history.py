@@ -36,7 +36,7 @@ def match_history(model, doc, findings, directory, concurrency=4):
             if chars+n<=16000:evidence.append(b);chars+=n
         evidence_ids={b['id'] for b in evidence}
         messages=[{'role':'system','content':'你是桥梁病害历史核对智能体。只根据明确的检测年份/当前与上次对比表及同一部位、构件编号判断；不同墩号/跨号/左右幅不可合并。资料缺失或未检索到匹配项不等于新增或修复。new=是需原文明示本次新增或同一位置上次未发现；new=否需匹配到同一病害。无充分依据填无法判断，previous=无，development=无，sources=[]，quote=空。不能将建议维修当已修复。development无明确量化/发展描述则无。每个id均需返回。quote逐字摘录历史证据的关键句，避免只引用“对比表”标题。调用save_comparisons。'}, {'role':'user','content':json.dumps({'current':[{k:d.get(k,'') for k in ['id','part','kind','description','source']} for d in group],'historical_candidates':[compact(b) for b in evidence]},ensure_ascii=False)}]
-        for attempt in range(2):
+        for attempt in range(3):
             msg=model.call(messages,[MATCH],{'type':'function','function':{'name':'save_comparisons'}},max_tokens=4500)
             try:
                 call=msg['tool_calls'][0];data=json.loads(call['function']['arguments']);matches=data['matches']
@@ -53,8 +53,9 @@ def match_history(model, doc, findings, directory, concurrency=4):
                             m['quote']=index[m['sources'][0]]['text'];m['quote_reconstructed']=True
                 save_json(dest,matches);return matches
             except (ValueError,KeyError,TypeError) as e:
-                if attempt:raise
+                if attempt==2:raise
                 messages.append(msg)
+                if not msg.get('tool_calls'):messages.append({'role':'user','content':'上次没有调用必需的工具，请调用 save_comparisons 返回全部组/病害 ID 的结构化结果，禁止仅文字确认。'})
                 for c in msg.get('tool_calls',[]):messages.append({'role':'tool','tool_call_id':c['id'],'content':str(e)})
         raise RuntimeError('History matching exhausted')
     groups=[pending[i:i+16] for i in range(0,len(pending),16)]
