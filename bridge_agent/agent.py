@@ -6,7 +6,7 @@ from pathlib import Path
 from .audit import FIELDS
 from .documents import compact,search,save_json,read_json
 from .model import function,obj,STR,STRS
-from .extraction import CLAIM
+from .extraction import CLAIM,validate_metric_scope
 from .render import normalize_date
 
 VALUE=obj({'value':STR,'sources':STRS})
@@ -60,6 +60,7 @@ def validate_report(report,doc,findings,seen):
         if item['value']!='无':
             if not sources:raise ValueError('Missing basic evidence '+field)
             evidence=' '.join(index[s]['text'] for s in sources)
+            validate_metric_scope(field,evidence)
             if field=='报告日期':evidence=normalize_date(evidence)
             numbers={Decimal(n) for n in re.findall(r'\d+(?:\.\d+)?',item['value'])}
             available={Decimal(n) for n in re.findall(r'\d+(?:\.\d+)?',evidence)}

@@ -53,6 +53,11 @@ def source_text(item,index):
     if normalized(quote) not in normalized(b['text']):raise ValueError('Quote absent from source '+b['id']+': '+quote[:80])
     return quote
 
+def validate_metric_scope(field,evidence):
+    marker=next((s for s in ['上部结构','下部结构','桥面系'] if field.startswith(s)),None)
+    if marker and re.search(r'(?:主桥|引桥|全桥|该桥).*总体(?:技术状况|评定)',evidence) and marker not in evidence:
+        raise ValueError('Overall main/approach bridge assessment is not '+marker+': '+field)
+
 def validate_findings(data, blocks):
     if not isinstance(data,dict) or any(k not in data or not isinstance(data[k],list) for k in FINDINGS['properties']):raise ValueError('Missing finding arrays')
     index={b['id']:b for b in blocks}
@@ -65,6 +70,7 @@ def validate_findings(data, blocks):
     for fact in data['facts']:
         if fact['field'] not in FIELDS[:12] or fact['source'] not in index:raise ValueError('Invalid field/source: '+str(fact))
         source=index[fact['source']]['text']
+        validate_metric_scope(fact['field'],source)
         if normalized(fact['quote']) not in normalized(source) or not fact['quote']:
             # Restore the actual source span when the value itself is exact; never keep a rewritten quote.
             if fact['value'] and fact['value'] in source:

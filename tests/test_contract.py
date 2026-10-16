@@ -30,6 +30,11 @@ class ContractTests(unittest.TestCase):
         def no_diseases(*args):return {k:[] for k in FINDINGS['properties']}
         with tempfile.TemporaryDirectory() as td,patch('bridge_agent.extraction.extract_batch',side_effect=no_diseases):
             got=extract_all(None,doc,Path(td));self.assertEqual(len(got['diseases']),1);self.assertEqual(got['diseases'][0]['table_context'],'左幅主桥')
+    def test_main_bridge_overall_score_is_not_superstructure_score(self):
+        from bridge_agent.extraction import validate_metric_scope
+        with self.assertRaises(ValueError):validate_metric_scope('上部结构评分','该桥主桥总体技术状况评定为83.2，等级为二类')
+        validate_metric_scope('总体评分','该桥主桥总体技术状况评定为83.2，等级为二类')
+        validate_metric_scope('上部结构评分','该桥主桥上部结构评分为83.2')
     def test_unknown_history_can_omit_empty_quote_without_crashing(self):
         from bridge_agent.history import match_history
         class FakeModel:
