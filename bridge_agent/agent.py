@@ -70,7 +70,7 @@ def validate_report(report,doc,findings,seen):
     if report['basic']['桥梁名称']['value']=='无':raise ValueError('Bridge identity not established')
     for claim in [report['trend'],report['overall'],report['risks']]+report['conclusion']+report['causes']+report['safety']:
         if not claim.get('text') or any(s not in index or s not in seen for s in claim.get('sources',[])):raise ValueError('Invalid or unread claim evidence')
-        if not claim.get('sources') and not re.search(r'未提供|未见|无法|不足|无可|缺少|未明确',claim['text']):raise ValueError('Unsupported claim: '+claim['text'][:80])
+        if not claim.get('sources') and not re.search(r'未提供|无法(?:判断|确认|核实)|(?:资料|证据)不足|缺少.*资料|未明确(?:给出|说明|提供)',claim['text']):raise ValueError('Unsupported claim: '+claim['text'][:80])
         if claim.get('inferred') and not re.search(r'可能|需结合|尚需|推测',claim['text']):raise ValueError('Inference must be expressed as uncertainty')
     rec_index={r['id']:r for r in findings['recommendations']}
     ids=report['recommendation_ids']
@@ -126,5 +126,11 @@ def synthesize(model,doc,findings,root,work):
             messages.append({'role':'tool','tool_call_id':call['id'],'content':json.dumps(result,ensure_ascii=False)})
         save_json(work/'agent_trace.json',trace)
         if submitted:return submitted
-        if len(json.dumps(messages,ensure_ascii=False))>75000:raise ValueError('Agent context budget exceeded; evidence queries too broad')
+        if len(json.dumps(messages,ensure_ascii=False))>55000:
+            for old in messages[2:-2]:
+                if old['role']=='tool' and len(old['content'])>1200:
+                    ids=sorted(set(re.findall(r'B\d{6}',old['content'])))
+                    old['content']=json.dumps({'archived':True,'source_ids':ids,'note':'Full original tool result saved in agent_trace.json. Use read_sources or read_findings if needed again.'})
+                if len(json.dumps(messages,ensure_ascii=False))<=55000:break
+        if len(json.dumps(messages,ensure_ascii=False))>75000:raise ValueError('Agent context budget exceeded after evidence archiving')
     raise RuntimeError('Agent did not submit a valid complete report in 10 rounds')

@@ -38,7 +38,7 @@ def process(source,root='.',output='result',work='work/jobs',concurrency=4,budge
         stage(name);t=time.monotonic();result=callback();timings[name]=round(time.monotonic()-t,3);return result
     try:
         doc=timed('parse',lambda:parse(source,root/'work/cache'))
-        if doc['chars']<300 and doc['images']>0:raise ValueError('Image-only report requires OCR; no complete report exported')
+        if doc['chars']<300 and doc.get('images'):raise ValueError('Image-only report requires OCR; no complete report exported')
         # All files are reusable only inside this content/model/code/contract-specific job.
         findings_path=directory/'findings.json'
         if findings_path.exists():findings=read_json(findings_path)
