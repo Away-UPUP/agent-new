@@ -1,0 +1,11 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+work/
+result/
+artifacts/
+赛题一_训练集/
+赛题一_训练集标签/
+初赛测试集/
+*.tar.gz
