@@ -48,7 +48,10 @@ def writing_style(doc,findings):
     profile_path=Path(__file__).resolve().parent.parent/'assets/style_profiles.json'
     if not profile_path.exists():return 'representative',None
     names=[f['value'] for f in findings.get('facts',[]) if f['field']=='桥梁名称']+[Path(doc['filename']).stem]
-    norm=lambda s:re.sub(r'\s|长江|[（(].*?[）)]','',s)
+    def norm(s):
+        clean=re.sub(r'\s|长江|[（(].*?[）)]','',s)
+        core=re.sub(r'(?:特大桥|大桥|中桥|小桥|桥)$','',clean)
+        return core if len(core)>=3 else clean
     dates=[f['value'] for f in findings.get('facts',[]) if f['field']=='报告日期']
     year=next((int(m[0]) for d in dates if (m:=re.search(r'20\d{2}',d))),None)
     scored=[]
