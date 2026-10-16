@@ -42,7 +42,7 @@ def materialize(report,findings):
     for i,d in enumerate(findings['diseases'],1):
         no_history=not report['has_history'];new='否' if no_history else d.get('new') or '无法判断';prev='无' if no_history else d.get('previous') or '无';development='无' if no_history else d.get('development') or '无'
         diseases.append([str(i),d['part'],d['kind'],d['description'],new,prev,development])
-    return {'summary':summary,'recommendations':[[str(i),r['category'],re.sub(r'^\s*[（(][一二三四五六七八九十\d]+[）)]\s*','',r['description']),r['part']] for i,r in enumerate(recs,1)],'diseases':diseases,'conclusion':[c['text'] for c in report['conclusion']],'causes':[c['text'] for c in report['causes']],'safety':[c['text'] for c in report['safety']]}
+    return {'summary':summary,'recommendations':[[str(i),r['category'],re.sub(r'^\s*(?:[（(][一二三四五六七八九十\d]+[）)]|[⑴-⒇①-⑳])\s*','',r['description']),r['part']] for i,r in enumerate(recs,1)],'diseases':diseases,'conclusion':[c['text'] for c in report['conclusion']],'causes':[c['text'] for c in report['causes']],'safety':[c['text'] for c in report['safety']]}
 
 
 def render(output,report,findings,root):

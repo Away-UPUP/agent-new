@@ -36,6 +36,10 @@ class ContractTests(unittest.TestCase):
         got=validate_findings(data,[{'id':'B1','text':source,'section':''}]);self.assertEqual(got['facts'][0]['quote'],source);self.assertTrue(got['facts'][0]['quote_reconstructed'])
         data['facts'][0].update(value='主桥93.2；引桥75.2',quote='改写')
         with self.assertRaises(ValueError):validate_findings(data,[{'id':'B1','text':source,'section':''}])
+    def test_legacy_merged_cell_recommendation_list_is_split_without_copying_cover(self):
+        from bridge_agent.recommendations import action_candidates
+        doc={'blocks':[{'id':'B1','kind':'row','section':'概况','text':'处理意见|⑴原摘要建议布置桥面排水设施；⑵原摘要建议修复桥面破损；','cells':['处理意见','⑴原摘要建议布置桥面排水设施；⑵原摘要建议修复桥面破损；']},{'id':'B2','kind':'row','section':'动力试验','text':'8 评估结论⑴技术状况良好。9 处理建议⑴按照规范布置桥面排水设施，提高耐久性；⑵修复桥面混凝土铺装破损部位；','cells':[]}]}
+        got=action_candidates(doc);self.assertEqual(len(got),2);self.assertTrue(all(c['source']=='B2' for c in got));self.assertNotIn('评估结论',str(got));self.assertTrue(got[1]['description'].startswith('⑵'))
     def test_explicit_recommendation_actions_keep_source_text_and_all_ids(self):
         from bridge_agent.recommendations import action_candidates,preserve_actions
         blocks=[{'id':'B1','kind':'paragraph','section':'14.2 养护建议','text':'（1）严格控制车辆荷载，严禁超载车辆通行。'},{'id':'B2','kind':'paragraph','section':'14.2 养护建议','text':'（2）其它病害应参照规范的相关条款进行处理。'}]

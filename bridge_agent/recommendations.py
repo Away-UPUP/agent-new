@@ -5,18 +5,26 @@ from .model import function,obj,STR
 CLASSIFY=function('classify_actions','Classify every supplied original recommendation; never rewrite its text.',obj({'actions':{'type':'array','items':obj({'id':STR,'part':STR,'category':{'type':'string','enum':['立即处置','尽快维修','预防性养护','非建议']},'reason':STR})}}))
 
 def action_candidates(doc):
-    candidates=[];seen=set()
+    primary=[];fallback=[]
     for b in doc['blocks']:
-        if b.get('kind')!='paragraph' or not re.search(r'(?:养护|维修|处置|处理|维护)建议',b['section']):continue
+        if re.search(r'历史|上次|往年|对比',b['section']):continue
         text=b['text']
+        if b.get('kind')=='paragraph' and re.search(r'(?:养护|维修|处置|处理|维护)建议',b['section']):primary.append((b,text))
+        elif b.get('kind')=='row':
+            # Old DOC exports can put whole chapters into one merged cell.
+            headings=list(re.finditer(r'\d+\s*(?:养护|维修|处置|处理|维护)建议',text))
+            if headings and re.search(r'[⑴-⒇①-⑳]|[（(]\d+[）)]',text[headings[-1].end():]):primary.append((b,text[headings[-1].end():]))
+            elif b.get('cells') and re.fullmatch(r'处理意见|养护建议|处置建议',b['cells'][0].strip()):fallback.append((b,'；'.join(b['cells'][1:])))
+    candidates=[];seen=set();numbering=r'[（(]\d+[）)]|[⑴-⒇①-⑳]'
+    for b,text in primary or fallback:
         if len(text)<12 or re.match(r'^(?:表\s*\d|图\s*\d|照片)',text) or not re.search(r'建议|应|加强|进行|更换|修复|修补|参照|定期|严禁|及时|控制|清理',text):continue
-        # Some DOC exports put the whole numbered list into a single paragraph.
-        parts=re.split(r'(?=[（(]\d+[）)])',text) if len(re.findall(r'[（(]\d+[）)]',text))>1 else [text]
+        parts=re.split('(?='+numbering+')',text) if len(re.findall(numbering,text))>1 else [text]
         for part in parts:
-            if len(part.strip())<12:continue
-            canonical=re.sub(r'\s|^[（(]?\d+[）).、．]','',part)
+            part=part.split('（本页以下无正文）')[0].strip()
+            if len(part)<12:continue
+            canonical=re.sub(r'\s|^[⑴-⒇①-⑳]|^[（(]?\d+[）).、．]','',part)
             if canonical in seen:continue
-            seen.add(canonical);candidates.append({'id':f'C{len(candidates)+1:04d}','source':b['id'],'section':b['section'],'description':part.strip()})
+            seen.add(canonical);candidates.append({'id':f'C{len(candidates)+1:04d}','source':b['id'],'section':b['section'],'description':part})
     return candidates
 
 def preserve_actions(model,doc,findings):
@@ -35,7 +43,7 @@ def preserve_actions(model,doc,findings):
                     a=index[c['id']]
                     if a['category'] not in ['立即处置','尽快维修','预防性养护','非建议']:raise ValueError('Invalid action category')
                     if a['category']=='非建议':
-                        if re.match(r'^[（(]\d+[）)]',c['description']):raise ValueError('A numbered action in the recommendation chapter cannot be excluded: '+c['id'])
+                        if re.match(r'^(?:[（(]\d+[）)]|[⑴-⒇①-⑳])',c['description']):raise ValueError('A numbered action in the recommendation chapter cannot be excluded: '+c['id'])
                         if not a.get('reason'):raise ValueError('Excluded action needs a reason')
                         continue
                     accepted.append({**c,'part':a['part'] or '桥梁','category':a['category'],'canonical':True})
