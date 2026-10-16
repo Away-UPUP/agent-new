@@ -26,9 +26,12 @@ def group_rows(rows,doc):
 def materialize_group(spec,group,evidence):
     index={d['id']:d for d in group};ids=spec['example_ids']
     if not ids or len(ids)>3 or len(ids)!=len(set(ids)) or any(i not in index for i in ids):raise ValueError('Choose 1-3 original examples from this group')
-    quote=spec['summary_quote'];sid=spec['summary_source']
+    quote=spec['summary_quote'];sid=spec['summary_source'];segment=sid
+    if sid in evidence and evidence[sid].get('source'):
+        quote=evidence[sid]['text'];sid=evidence[sid]['source']
+        evidence={**evidence,sid:{'text':quote}}
     if bool(quote)!=bool(sid):raise ValueError('Summary source and verbatim quote required together')
-    if quote and (sid not in evidence or re.sub(r'\s','',quote) not in re.sub(r'\s','',evidence[sid]['text'])):raise ValueError('Summary quote absent from original source')
+    if quote and (sid not in evidence or re.sub(r'\s','',quote) not in re.sub(r'\s','',evidence[sid]['text'])):raise ValueError('Summary quote absent from original source: '+str(spec.get('id'))+' '+sid+' '+quote[:100])
     part=spec['part'];context=group[0].get('table_context','')
     for pair in [('左幅','右幅'),('主桥','引桥')]:
         present=[term for term in pair if term in context]
@@ -42,7 +45,7 @@ def materialize_group(spec,group,evidence):
     elif quote:description=quote+'（如：'+'；'.join(descriptions)+'）'
     else:description=f'共记录{len(group)}项{spec["kind"]}观测（如：'+'；'.join(descriptions)+'等）'
     sources=list(dict.fromkeys([d['source'] for d in group]+([sid] if sid else [])))
-    return {**group[0],'part':part,'kind':spec['kind'],'description':description,'sources':sources,'member_ids':[d['id'] for d in group],'member_count':len(group),'examples':selected,'summary_source':sid,'summary_quote':quote,'previous':'','new':'','development':'','history_sources':[]}
+    return {**group[0],'part':part,'kind':spec['kind'],'description':description,'sources':sources,'member_ids':[d['id'] for d in group],'member_count':len(group),'examples':selected,'summary_source':sid,'summary_segment':segment,'summary_quote':quote,'previous':'','new':'','development':'','history_sources':[]}
 
 def writing_style(doc,findings):
     profile_path=Path(__file__).resolve().parent.parent/'assets/style_profiles.json'
@@ -93,9 +96,13 @@ def selection(model,doc,findings,path):
         for b in chosen.values():
             if used+len(b['text'])>12000:continue
             bounded.append(b);used+=len(b['text'])
-        chosen={b['id']:b for b in bounded}
+        segments=[]
+        for b in bounded:
+            for n,match in enumerate(re.finditer(r'[^；。\n]+[；。]?',b['text'])):
+                segments.append({**b,'id':b['id']+':'+str(n),'source':b['id'],'text':match[0],'summary_context':(b['summary_context']+' '+b['text'][:match.start()])[-250:]})
+        chosen={b['id']:b for b in segments}
         evidence={b['id']:b for b in chosen.values()}
-        style_instruction='本报告采用原文代表位置写法：summary_source与summary_quote必须为空；每组通常只选最先出现的1处，裂缝组可选最先出现的2处，另补特别严重例外。不要将多个位置拼成一段。' if style=='representative' else '本报告采用按构件及类型汇总数量的写法；优先逐字引用本次原文对应统计，并选最早的1-3个位置。'
+        style_instruction='本报告采用原文代表位置写法：summary_source与summary_quote必须为空；每组通常只选最先出现的1处，裂缝组可选最先出现的2处，另补特别严重例外。不要将多个位置拼成一段。' if style=='representative' else '本报告采用按构件及类型汇总数量的写法；summary_source选择提供的精确片段ID（含冒号编号），summary_quote必须为空，程序恢复该原文片段，无需抄写。没有精确对应片段时两字段均空。选最早的1-3个位置。'
         messages=[{'role':'system','content':'你是桥梁分析报告病害表编审。完整台账已保存，现在逐组整理汇总，禁止丢弃任一给定组。按表题明确左幅/右幅、主桥/引桥、箱梁内/外，part用宏观部位，不让示例中的第几跨代替整个分组。kind用标签的简洁病名。同组所有观测均保留关联，example_ids选本组最先出现的1-3项典型位置，优先保留最早项目及严重例外，不能使用其他组ID。若原文摘要中有精确对应同侧同构件同类型的数量，可summary_source和summary_quote逐字摘取该连续片段；不要把其他构件的计数混入，不要改写原文，不要引用历史数量。没有准确对应摘要就两个字段都空。程序恢复原文例子和计数，不要自行计算或编造总长度/面积。每个组ID必须返回一次，只调用organize_groups。'+style_instruction}, {'role':'user','content':json.dumps({'groups':items,'current_summary_sources':[{'id':b['id'],'section':b['section'],'context':b['summary_context'],'text':b['text']} for b in chosen.values()]},ensure_ascii=False)}]
         for attempt in range(3):
             msg=model.call(messages,[SUMMARY],{'type':'function','function':{'name':'organize_groups'}},max_tokens=4500)

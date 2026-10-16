@@ -36,6 +36,11 @@ class ContractTests(unittest.TestCase):
         got=validate_findings(data,[{'id':'B1','text':source,'section':''}]);self.assertEqual(got['facts'][0]['quote'],source);self.assertTrue(got['facts'][0]['quote_reconstructed'])
         data['facts'][0].update(value='主桥93.2；引桥75.2',quote='改写')
         with self.assertRaises(ValueError):validate_findings(data,[{'id':'B1','text':source,'section':''}])
+    def test_summary_segment_id_restores_original_without_model_transcription(self):
+        from bridge_agent.selection import materialize_group
+        rows=[{'id':'D1','source':'B1','part':'箱梁','kind':'裂缝','description':'位置1裂缝'},{'id':'D2','source':'B2','part':'箱梁','kind':'裂缝','description':'位置2裂缝'}]
+        spec={'part':'箱梁','kind':'裂缝','summary_source':'B9:0','summary_quote':'','example_ids':['D1']}
+        got=materialize_group(spec,rows,{'B9:0':{'source':'B9','text':'存在2条裂缝；'}});self.assertEqual(got['summary_source'],'B9');self.assertEqual(got['summary_quote'],'存在2条裂缝；');self.assertIn('B9',got['sources']);self.assertNotIn('B9:0',got['sources'])
     def test_group_organizer_repairs_plain_text_with_explicit_tool_instruction(self):
         from bridge_agent.selection import selection
         class FakeModel:
