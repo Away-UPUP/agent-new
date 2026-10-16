@@ -27,7 +27,12 @@ def main():
    if (code/'work').exists():raise RuntimeError('Package unexpectedly contains runtime state')
    process=subprocess.run([sys.executable,'-m','bridge_agent','run',str(incoming),'--output','result','--work','work/clean','--concurrency','4'],cwd=code,env=env,capture_output=True,text=True)
    (root/'artifacts/clean_package_run.log').write_text(process.stdout+process.stderr)
-   if process.returncode:raise RuntimeError('Clean package real model run failed; see artifacts/clean_package_run.log')
+   if process.returncode:
+    audit=root/'artifacts'/('clean_failure_'+str(time.time_ns()));audit.mkdir()
+    for task in (code/'work/clean').iterdir():
+     if task.is_dir():shutil.copytree(task,audit/task.name)
+    save_json(audit/'failure.json',{'archive_sha256':digest(archive),'code_hash':manifest['code_hash'],'contract_hash':manifest['contract_hash'],'stdout':process.stdout,'stderr':process.stderr})
+    raise RuntimeError('Clean package real model run failed; diagnostics preserved in '+str(audit))
    m=json.loads(process.stdout.strip().splitlines()[-1]);dest=Path(m['output']);document=Document(dest)
    if [len(t.columns) for t in document.tables]!=[3,4,7] or len(document.tables[0].rows)!=17:raise RuntimeError('Output contract mismatch')
    if m['cache_hits'] or not m['model_requests']:raise RuntimeError('Expected fresh real model calls')
