@@ -7,6 +7,7 @@ from docx.oxml.ns import qn
 from .audit import FIELDS,REC_HEADERS,DISEASE_HEADERS
 from .documents import read_json
 import re
+from decimal import Decimal
 
 def normalize_date(value):
     digits=dict(zip('零〇○一二三四五六七八九','000123456789'))
@@ -31,7 +32,8 @@ def materialize(report,findings):
         match=re.match(r'^主桥[：:\s]*([^；;\n]+)',summary[field])
         if match:
             summary[field]=match[1].strip()
-            if '评分' in field and precision is not None and re.fullmatch(r'\d+(?:\.\d+)?',summary[field]):summary[field]=f'{float(summary[field]):.{precision}f}'
+            if '评分' in field and precision is not None and re.fullmatch(r'\d+(?:\.\d+)?',summary[field]):
+                places=max(precision,len(summary[field].partition('.')[2]));summary[field]=f'{Decimal(summary[field]):.{places}f}'
     summary['报告日期']=normalize_date(summary['报告日期'])
     for field in [k for k in FIELDS[:12] if '等级' in k]:
         if re.fullmatch('[A-Ea-e]',summary[field]):summary[field]=summary[field].upper()+'级'

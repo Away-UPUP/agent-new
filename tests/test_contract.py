@@ -4,11 +4,40 @@ from docx import Document
 from bridge_agent.documents import parse,search,save_json
 from bridge_agent.extraction import validate_findings,chunks,source_text
 from bridge_agent.audit import label_data,FIELDS
-from bridge_agent.render import render
+from bridge_agent.render import render,materialize
 from bridge_agent.render import normalize_date
 from bridge_agent.agent import fact_candidates
+from bridge_agent.extraction import extract_all,FINDINGS
+from unittest.mock import patch
+from bridge_agent.model import Model
 
 class ContractTests(unittest.TestCase):
+    def test_main_bridge_overview_preserves_approach_facts_and_precision(self):
+        basic={k:{'value':'无','sources':[]} for k in FIELDS[:12]};basic['总体评分']['value']='主桥70.80；引桥74.00';basic['上一次总体评分']['value']='主桥74；引桥68.6';basic['总体等级']['value']='主桥二类；引桥二类'
+        report={'basic':basic,'has_history':True,'recommendation_ids':[],'trend':{'text':'趋势'},'overall':{'text':'结论'},'risks':{'text':'风险'},'conclusion':[],'causes':[],'safety':[]};findings={'recommendations':[],'diseases':[]}
+        result=materialize(report,findings);self.assertEqual(result['summary']['总体评分'],'70.80');self.assertEqual(result['summary']['上一次总体评分'],'74.00');self.assertEqual(result['summary']['总体等级'],'二类');self.assertIn('引桥',basic['总体评分']['value'])
+        basic['上一次总体评分']['value']='主桥74.234；引桥68.6';self.assertEqual(materialize(report,findings)['summary']['上一次总体评分'],'74.234')
+    def test_upstream_failure_splits_only_the_failed_source_batch(self):
+        def fake_extract(model,blocks,path,identity):
+            if len(blocks)>1:raise RuntimeError('Model HTTP 502: upstream failure')
+            return {k:[] for k in FINDINGS['properties']}
+        doc={'filename':'x.docx','tables':[],'blocks':[{'id':'B000001','text':'第一段','section':''},{'id':'B000002','text':'第二段','section':''}]}
+        with tempfile.TemporaryDirectory() as td,patch('bridge_agent.extraction.extract_batch',side_effect=fake_extract) as mocked:
+            result=extract_all(None,doc,Path(td));self.assertEqual(result['coverage']['processed_blocks'],2);self.assertEqual(mocked.call_count,3);self.assertEqual(json.loads((Path(td)/'0000.json').read_text())['split_depth'],1)
+    def test_shared_response_requires_identical_request_and_service(self):
+        class Response:
+            status_code=200
+            def json(self):return {'choices':[{'finish_reason':'tool_calls','message':{'role':'assistant','tool_calls':[{'id':'call1','type':'function','function':{'name':'done','arguments':'{}'}}]}}],'usage':{'prompt_tokens':5,'completion_tokens':2}}
+        class Client:
+            def __init__(self,forbidden=False):self.forbidden=forbidden
+            def post(self,*a,**k):
+                if self.forbidden:raise AssertionError('Unexpected network call')
+                return Response()
+        with tempfile.TemporaryDirectory() as td,patch.dict('os.environ',{'INSPECTION_FRESH_RUN':'0'}):
+            root=Path(td);env=root/'.env';env.write_text('INSPECTION_API_BASE_URL=https://model.invalid/v1\nINSPECTION_API_KEY=dummy\nINSPECTION_MODEL=test-model\n')
+            a=Model(root,root/'work/first');a.client.close();a.client=Client();messages=[{'role':'user','content':'source A'}];result=a.call(messages,[])
+            b=Model(root,root/'work/second');b.client.close();b.client=Client(True);self.assertEqual(b.call(messages,[]),result);self.assertTrue(b.records[-1]['cache'])
+            env.write_text(env.read_text().replace('model.invalid','other.invalid'));c=Model(root,root/'work/third');c.client.close();c.client=Client();c.call(messages,[]);self.assertFalse(c.records[-1]['cache'])
     def test_nested_table_is_not_flattened_into_parent_row(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);p=root/'nested.docx';d=Document();outer=d.add_table(rows=1,cols=1);cell=outer.cell(0,0);cell.text='前文';inner=cell.add_table(rows=2,cols=2);inner.cell(0,0).text='部位';inner.cell(0,1).text='病害描述';inner.cell(1,0).text='3#墩';inner.cell(1,1).text='裂缝W=0.12mm';cell.add_paragraph('后文');d.save(p)
