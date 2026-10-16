@@ -46,6 +46,7 @@ def overview(findings):
             if len(out[key])>8:out[key]=out[key][:max(8,len(out[key])//2)];changed=True
         if not changed:raise ValueError('Oversized overview; paginate source claims')
     out['ledger_counts']={k:len(findings[k]) for k in ['facts','diseases','recommendations','causes','safety','history_notes']}
+    out['recommendation_mode']=findings.get('recommendation_mode','extracted_candidates')
     return out
 
 def validate_report(report,doc,findings,seen):
@@ -82,6 +83,7 @@ def validate_report(report,doc,findings,seen):
     ids=report['recommendation_ids']
     if len(ids)!=len(set(ids)) or any(i not in rec_index for i in ids):raise ValueError('Invalid recommendation selection')
     if rec_index and not ids:raise ValueError('All recommendations omitted')
+    if findings.get('recommendation_mode')=='explicit_recommendation_chapter' and set(ids)!=set(rec_index):raise ValueError('Every explicit final-chapter recommendation must be included exactly once; required IDs: '+','.join(rec_index))
     if len(report['conclusion'])<3 or not report['causes'] or not report['safety']:raise ValueError('Incomplete detailed analysis')
     if not findings['diseases'] and not findings['no_disease_sources']:raise ValueError('No observations or supported no-disease finding')
     if findings['coverage']['processed_blocks']!=findings['coverage']['total_blocks']:raise ValueError('Incomplete document coverage')

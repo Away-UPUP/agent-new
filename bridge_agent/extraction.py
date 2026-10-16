@@ -169,6 +169,8 @@ def extract_all(model, doc, directory, concurrency=4, budget=22000):
             else:fingerprint=json.dumps(item,sort_keys=True,ensure_ascii=False)
             if fingerprint not in seen:seen.add(fingerprint);out.append(item)
         merged[key]=out
+    from .recommendations import preserve_actions
+    preserve_actions(model,doc,merged)
     for i,d in enumerate(merged['diseases'],1):d['id']=f'D{i:05d}'
     for i,d in enumerate(merged['recommendations'],1):d['id']=f'R{i:04d}'
     merged['coverage']={'total_blocks':len(doc['blocks']),'processed_blocks':sum(len(g) for g in groups),'batches':len(groups),'meaning':'all parsed text blocks sent through successful model extraction; this is not disease recall'}

@@ -36,6 +36,18 @@ class ContractTests(unittest.TestCase):
         got=validate_findings(data,[{'id':'B1','text':source,'section':''}]);self.assertEqual(got['facts'][0]['quote'],source);self.assertTrue(got['facts'][0]['quote_reconstructed'])
         data['facts'][0].update(value='主桥93.2；引桥75.2',quote='改写')
         with self.assertRaises(ValueError):validate_findings(data,[{'id':'B1','text':source,'section':''}])
+    def test_explicit_recommendation_actions_keep_source_text_and_all_ids(self):
+        from bridge_agent.recommendations import action_candidates,preserve_actions
+        blocks=[{'id':'B1','kind':'paragraph','section':'14.2 养护建议','text':'（1）严格控制车辆荷载，严禁超载车辆通行。'},{'id':'B2','kind':'paragraph','section':'14.2 养护建议','text':'（2）其它病害应参照规范的相关条款进行处理。'}]
+        class FakeModel:
+            def call(self,*args,**kwargs):return {'tool_calls':[{'function':{'arguments':json.dumps({'actions':[{'id':f'C{i:04d}','part':'桥梁','category':'预防性养护','reason':''} for i in [1,2]]})}}]}
+        doc={'blocks':blocks};self.assertEqual(len(action_candidates(doc)),2);findings={'recommendations':[{'description':'其它章节建议'}]};preserve_actions(FakeModel(),doc,findings);self.assertEqual(len(findings['recommendations']),2);self.assertEqual(findings['recommendations'][1]['description'],blocks[1]['text']);self.assertEqual(len(findings['additional_recommendations']),1)
+    def test_explicit_recommendation_omission_is_rejected(self):
+        from bridge_agent.agent import validate_report
+        basic={k:{'value':'无','sources':[]} for k in FIELDS[:12]};basic['桥梁名称']={'value':'测试桥','sources':['B1']};claim={'text':'未提供历史资料','sources':['B1'],'inferred':False}
+        report={'basic':basic,'has_history':False,'trend':claim,'overall':claim,'risks':claim,'conclusion':[claim]*3,'recommendation_ids':['R1'],'causes':[claim],'safety':[claim]};doc={'blocks':[{'id':'B1','text':'测试桥'}]};findings={'facts':[],'diseases':[{'description':'裂缝'}],'recommendations':[{'id':'R1'},{'id':'R2'}],'recommendation_mode':'explicit_recommendation_chapter','coverage':{'processed_blocks':1,'total_blocks':1}}
+        with self.assertRaises(ValueError):validate_report(report,doc,findings,{'B1'})
+        report['recommendation_ids']=['R1','R2'];validate_report(report,doc,findings,{'B1'})
     def test_summary_segment_id_restores_original_without_model_transcription(self):
         from bridge_agent.selection import materialize_group
         rows=[{'id':'D1','source':'B1','part':'箱梁','kind':'裂缝','description':'位置1裂缝'},{'id':'D2','source':'B2','part':'箱梁','kind':'裂缝','description':'位置2裂缝'}]
@@ -148,8 +160,8 @@ class ContractTests(unittest.TestCase):
         basic={k:{'value':'无','sources':[]} for k in FIELDS[:12]};basic['桥梁名称']['value']='测试桥'
         claim=lambda s:{'text':s,'sources':['B1'],'inferred':False}
         report={'basic':basic,'has_history':False,'trend':claim('未提供历史资料'),'overall':claim('裂缝需处置'),'risks':claim('3#墩裂缝'),'conclusion':[claim('经综合评定，无评分。'),claim('无历史资料。'),claim('目前存在裂缝。')],'recommendation_ids':['R1'],'causes':[claim('原文未说明')],'safety':[claim('可能影响耐久性')]}
-        findings={'recommendations':[{'id':'R1','category':'尽快维修','description':'封闭裂缝','part':'3#墩'}],'diseases':[{'part':'3#墩','kind':'裂缝','description':'裂缝W=0.12mm','source':'B1'}]}
+        findings={'recommendations':[{'id':'R1','category':'尽快维修','description':'（1）封闭裂缝','part':'3#墩'}],'diseases':[{'part':'3#墩','kind':'裂缝','description':'裂缝W=0.12mm','source':'B1'}]}
         with tempfile.TemporaryDirectory() as td:
             p=Path(td)/'out.docx';data=render(p,report,findings,root);doc=Document(p)
-            self.assertEqual([len(t.columns) for t in doc.tables],[3,4,7]);self.assertEqual(len(doc.tables[0].rows),17);self.assertEqual(data['diseases'][0][-3:],['否','无','无']);self.assertIn('1条尽快维修',data['summary']['建议'])
+            self.assertEqual(doc.tables[1].rows[1].cells[2].text,'封闭裂缝');self.assertEqual([len(t.columns) for t in doc.tables],[3,4,7]);self.assertEqual(len(doc.tables[0].rows),17);self.assertEqual(data['diseases'][0][-3:],['否','无','无']);self.assertIn('1条尽快维修',data['summary']['建议'])
 if __name__=='__main__':unittest.main()
