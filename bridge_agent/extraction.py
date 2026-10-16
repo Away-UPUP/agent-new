@@ -102,7 +102,7 @@ def validate_findings(data, blocks):
 def extract_batch(model, blocks, directory, identity):
     messages=[{'role':'system','content':SYSTEM+'\n输入压缩协议：blocks中的s引用sections，table引用table_headers；每个cells均为该实际行的单元格，列索引从0开始，可能与表头列数不同（合并单元格或照片排版），切勿假设缺失单元格存在。未知事实不要输出空占位条目，直接省略。对于单独的建议或病害段落，cols=[]且quote=空即可引用完整原文块，不必抄写；仅需摘取块内局部句子时才使用逐字quote。document.pre_extracted_disease_sources已经保存的标准病害行不要再次输出，只有明显类型/部位错误才覆盖。'}, {'role':'user','content':json.dumps({'document':identity,**pack_blocks(blocks)},ensure_ascii=False)}]
     for attempt in range(3):
-        msg=model.call(messages,[EXTRACT],{'type':'function','function':{'name':'save_findings'}},max_tokens=6500)
+        msg=model.call(messages,[EXTRACT],{'type':'function','function':{'name':'save_findings'}},max_tokens=6500,allow_split=True)
         try:
             calls=msg.get('tool_calls',[])
             if len(calls)!=1 or calls[0]['function']['name']!='save_findings':raise ValueError('Expected save_findings call')

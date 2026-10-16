@@ -13,10 +13,16 @@ class Model:
         if not all([self.base,self.key,self.name]):raise ValueError('Missing INSPECTION_API_BASE_URL / INSPECTION_API_KEY / INSPECTION_MODEL')
         self.work=Path(work); self.cache=self.work/'calls';self.cache.mkdir(parents=True,exist_ok=True)
         self.shared_calls={} if os.environ.get('INSPECTION_FRESH_RUN')=='1' else {p.stem:p for p in (Path(root)/'work').rglob('calls/*.json')}
+        self.split_requests=set()
+        if os.environ.get('INSPECTION_FRESH_RUN')!='1':
+            for p in (Path(root)/'work').rglob('model_metrics.jsonl'):
+                for line in p.read_text().splitlines():
+                    r=json.loads(line)
+                    if r.get('attempt')==3 and any('HTTP '+str(code) in r.get('error','') for code in [413,502,503,504]):self.split_requests.add(r['key'])
         self.lock=threading.Lock();self.sem=threading.Semaphore(concurrency);self.records=[]
         self.client=httpx.Client(timeout=httpx.Timeout(240,connect=30),limits=httpx.Limits(max_connections=concurrency,max_keepalive_connections=concurrency))
 
-    def call(self, messages, tools, choice='auto', max_tokens=6000):
+    def call(self, messages, tools, choice='auto', max_tokens=6000, allow_split=False):
         payload={'model':self.name,'messages':messages,'tools':tools,'tool_choice':choice,'max_tokens':max_tokens}
         key=hashlib.sha256(json.dumps({'base':self.base,'payload':payload},sort_keys=True,ensure_ascii=False).encode()).hexdigest()
         dest=self.cache/(key+'.json')
@@ -26,6 +32,8 @@ class Model:
             origin=self.shared_calls[key];d=read_json(origin)
             if d.get('request')==payload:
                 save_json(dest,d);self.record({'cache':True,'key':key,'seconds':0,'usage':{},'origin':str(origin)});return d['message']
+        if allow_split and key in self.split_requests:
+            raise RuntimeError('Model HTTP 502: exact request previously exhausted retries; split this source batch')
         # The exact request and response are local artifacts, never credentials.
         for attempt in range(3):
             start=time.monotonic()
