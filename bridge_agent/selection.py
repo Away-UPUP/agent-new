@@ -50,8 +50,13 @@ def selection(model,doc,findings,path):
             nearby=sorted(summaries,key=lambda b:abs(int(b['id'][1:])-at))[:8]
             for b in nearby:chosen[b['id']]=b
             examples=group[:3]+sorted(group,key=lambda d:len(d['description']),reverse=True)[:2]+group[-1:]
-            unique={d['id']:{k:d[k] for k in ['id','part','kind','description','source']} for d in examples}
-            items.append({'id':f'G{n:04d}','table_context':first.get('table_context',first['section']),'kind_counts':dict(Counter(d['kind'] for d in group)),'ledger_count':len(group),'examples':list(unique.values())})
+            unique={d['id']:{k:(d[k][:400] if k in ['description','part'] else d[k]) for k in ['id','part','kind','description','source']} for d in examples}
+            items.append({'id':f'G{n:04d}','table_context':first.get('table_context',first['section'])[:400],'kind_counts':dict(Counter(d['kind'] for d in group)),'ledger_count':len(group),'examples':list(unique.values())})
+        bounded=[];used=0
+        for b in chosen.values():
+            if used+len(b['text'])>12000:continue
+            bounded.append(b);used+=len(b['text'])
+        chosen={b['id']:b for b in bounded}
         evidence={b['id']:b for b in chosen.values()}
         messages=[{'role':'system','content':'你是桥梁分析报告病害表编审。完整台账已保存，现在逐组整理汇总，禁止丢弃任一给定组。按表题明确左幅/右幅、主桥/引桥、箱梁内/外，part用宏观部位，不让示例中的第几跨代替整个分组。kind用标签的简洁病名。同组所有观测均保留关联，example_ids选本组最先出现的1-3项典型位置，优先保留最早项目及严重例外，不能使用其他组ID。若原文摘要中有精确对应同侧同构件同类型的数量，可summary_source和summary_quote逐字摘取该连续片段；不要把其他构件的计数混入，不要改写原文，不要引用历史数量。没有准确对应摘要就两个字段都空。程序恢复原文例子和计数，不要自行计算或编造总长度/面积。每个组ID必须返回一次，只调用organize_groups。'}, {'role':'user','content':json.dumps({'groups':items,'current_summary_sources':[{'id':b['id'],'section':b['section'],'text':b['text']} for b in chosen.values()]},ensure_ascii=False)}]
         for attempt in range(2):
