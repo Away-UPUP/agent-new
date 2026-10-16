@@ -1,5 +1,5 @@
 """Run real held-out sources from fresh state, then evaluate without feeding labels to generation."""
-import argparse,json,sys,time
+import argparse,json,sys,time,os
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from bridge_agent.pipeline import process
@@ -15,6 +15,7 @@ SAMPLES=[
 ]
 
 def main():
+ os.environ.setdefault('INSPECTION_FRESH_RUN','1')
  p=argparse.ArgumentParser();p.add_argument('--samples',nargs='*',default=[s[0] for s in SAMPLES]);p.add_argument('--name',default='acceptance');p.add_argument('--concurrency',type=int,default=4);args=p.parse_args();root=Path(__file__).resolve().parents[1];results=[]
  for name,source,label in SAMPLES:
   if name not in args.samples:continue

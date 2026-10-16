@@ -12,6 +12,7 @@ class Model:
         self.key=c.get('INSPECTION_API_KEY','');self.name=c.get('INSPECTION_MODEL','')
         if not all([self.base,self.key,self.name]):raise ValueError('Missing INSPECTION_API_BASE_URL / INSPECTION_API_KEY / INSPECTION_MODEL')
         self.work=Path(work); self.cache=self.work/'calls';self.cache.mkdir(parents=True,exist_ok=True)
+        self.shared_calls={} if os.environ.get('INSPECTION_FRESH_RUN')=='1' else {p.stem:p for p in (Path(root)/'work').rglob('calls/*.json')}
         self.lock=threading.Lock();self.sem=threading.Semaphore(concurrency);self.records=[]
         self.client=httpx.Client(timeout=httpx.Timeout(240,connect=30),limits=httpx.Limits(max_connections=concurrency,max_keepalive_connections=concurrency))
 
@@ -21,6 +22,10 @@ class Model:
         dest=self.cache/(key+'.json')
         if dest.exists():
             d=read_json(dest);self.record({'cache':True,'key':key,'seconds':0,'usage':{}});return d['message']
+        if key in self.shared_calls:
+            origin=self.shared_calls[key];d=read_json(origin)
+            if d.get('request')==payload:
+                save_json(dest,d);self.record({'cache':True,'key':key,'seconds':0,'usage':{},'origin':str(origin)});return d['message']
         # The exact request and response are local artifacts, never credentials.
         for attempt in range(3):
             start=time.monotonic()

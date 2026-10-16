@@ -130,8 +130,9 @@ def extract_all(model, doc, directory, concurrency=4, budget=22000):
             if saved['block_ids']==[b['id'] for b in bs]:return saved['data']
         def extract_part(bs,path,depth=0):
             try:return extract_batch(model,bs,path,{'filename':doc['filename'],'batch':i,'total_batches':len(groups),'detailed_disease_tables':detail_tables,'pre_extracted_disease_sources':[b['id'] for b in bs if b['id'] in seed_ids],'pre_extraction_instructions':'这些source的部位、病害类型、完整描述已由表格列名提取并保存，无需重抄。你必须检查其是否为当前真实病害：若属历史/评分标准/完好/照片重复/已修复无现状病害，使用excluded_diseases说明原因；若部位或类型需语义修正，用diseases返回该source覆盖。额外独立观测仍须提取，事实/历史/建议照常。'})
-            except ValueError as e:
-                if 'incomplete' not in str(e) or depth>=3 or len(bs)<2:raise
+            except (ValueError,RuntimeError) as e:
+                splittable='incomplete' in str(e) or bool(re.search(r'Model HTTP (?:413|502|503|504)',str(e)))
+                if not splittable or depth>=3 or len(bs)<2:raise
                 mid=len(bs)//2;left=extract_part(bs[:mid],path.with_name(path.stem+'a.json'),depth+1);right=extract_part(bs[mid:],path.with_name(path.stem+'b.json'),depth+1)
                 merged={k:left[k]+right[k] for k in FINDINGS['properties']}
                 save_json(path,{'block_ids':[b['id'] for b in bs],'data':merged,'split_depth':depth+1});return merged
