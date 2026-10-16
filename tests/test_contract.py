@@ -5,8 +5,19 @@ from bridge_agent.documents import parse,search,save_json
 from bridge_agent.extraction import validate_findings,chunks,source_text
 from bridge_agent.audit import label_data,FIELDS
 from bridge_agent.render import render
+from bridge_agent.render import normalize_date
+from bridge_agent.agent import fact_candidates
 
 class ContractTests(unittest.TestCase):
+    def test_nested_table_is_not_flattened_into_parent_row(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);p=root/'nested.docx';d=Document();outer=d.add_table(rows=1,cols=1);cell=outer.cell(0,0);cell.text='前文';inner=cell.add_table(rows=2,cols=2);inner.cell(0,0).text='部位';inner.cell(0,1).text='病害描述';inner.cell(1,0).text='3#墩';inner.cell(1,1).text='裂缝W=0.12mm';cell.add_paragraph('后文');d.save(p)
+            parsed=parse(p,root/'cache');texts=[b['text'] for b in parsed['blocks']]
+            self.assertEqual(parsed['table_count'],2);self.assertEqual(sum('0.12mm' in t for t in texts),1);self.assertLess(texts.index('前文'),next(i for i,t in enumerate(texts) if '0.12mm' in t));self.assertEqual(texts[-1],'后文')
+    def test_date_and_consensus_normalization(self):
+        self.assertEqual(normalize_date('二〇一八年十二月三十一日'),'2018年12月31日');self.assertEqual(normalize_date('2014/7/25'),'2014年7月25日')
+        rows=[{'field':'总体评分','value':v,'source':s,'quote':'原文'} for v,s in [('70.80','B1'),('70.8','B2'),('74','B3'),('70.8','B1')]]
+        got=fact_candidates(rows);self.assertEqual(len(got),2);self.assertEqual(got[0]['sources'],['B1','B2'])
     def test_parser_order_table_and_unicode(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);p=root/'fake.doc';d=Document();d.add_paragraph('1、桥梁概况');t=d.add_table(rows=2,cols=2);t.cell(0,0).text='位置';t.cell(0,1).text='描述';t.cell(1,0).text='3#墩';t.cell(1,1).text='裂缝W=0.12mm';d.add_paragraph('结束');d.save(p)

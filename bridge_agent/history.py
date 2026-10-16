@@ -46,7 +46,10 @@ def match_history(model, doc, findings, directory, concurrency=4):
                     if m['new'] not in ['是','否','无法判断']:raise ValueError('Invalid status')
                     if any(s not in evidence_ids for s in m['sources']):raise ValueError('Invalid comparison source')
                     if m['new'] in ['是','否']:
-                        if not m['sources'] or not m['quote'] or not any(re.sub(r'\s','',m['quote']) in re.sub(r'\s','',index[s]['text']) for s in m['sources']):raise ValueError('Comparison quote not supported')
+                        if not m['sources']:raise ValueError('Comparison without an original historical source')
+                        if not m['quote'] or not any(re.sub(r'\s','',m['quote']) in re.sub(r'\s','',index[s]['text']) for s in m['sources']):
+                            # Restore the actual evidence, retaining no paraphrase as a verbatim quote.
+                            m['quote']=index[m['sources'][0]]['text'];m['quote_reconstructed']=True
                 save_json(dest,matches);return matches
             except (ValueError,KeyError,TypeError) as e:
                 if attempt:raise
