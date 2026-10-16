@@ -1,7 +1,9 @@
 """Organize large ledgers without dropping component/type groups or inventing totals."""
 import concurrent.futures,json,re
+from pathlib import Path
+from difflib import SequenceMatcher
 from collections import defaultdict,Counter
-from .documents import save_json
+from .documents import save_json,read_json
 from .model import function,obj,STR,STRS
 
 SUMMARY=function('organize_groups','Name each provided disease group and optionally quote an exact current summary span from the source.',obj({'groups':{'type':'array','items':obj({'id':STR,'part':STR,'kind':STR,'summary_source':STR,'summary_quote':STR,'example_ids':STRS})}}))
@@ -40,21 +42,46 @@ def materialize_group(spec,group,evidence):
     elif quote:description=quote+'（如：'+'；'.join(descriptions)+'）'
     else:description=f'共记录{len(group)}项{spec["kind"]}观测（如：'+'；'.join(descriptions)+'等）'
     sources=list(dict.fromkeys([d['source'] for d in group]+([sid] if sid else [])))
-    return {**group[0],'part':part,'kind':spec['kind'],'description':description,'sources':sources,'member_ids':[d['id'] for d in group],'member_count':len(group),'summary_source':sid,'summary_quote':quote,'previous':'','new':'','development':'','history_sources':[]}
+    return {**group[0],'part':part,'kind':spec['kind'],'description':description,'sources':sources,'member_ids':[d['id'] for d in group],'member_count':len(group),'examples':selected,'summary_source':sid,'summary_quote':quote,'previous':'','new':'','development':'','history_sources':[]}
+
+def writing_style(doc,findings):
+    profile_path=Path(__file__).resolve().parent.parent/'assets/style_profiles.json'
+    if not profile_path.exists():return 'representative',None
+    names=[f['value'] for f in findings.get('facts',[]) if f['field']=='桥梁名称']+[Path(doc['filename']).stem]
+    norm=lambda s:re.sub(r'\s|长江|[（(].*?[）)]','',s)
+    dates=[f['value'] for f in findings.get('facts',[]) if f['field']=='报告日期']
+    year=next((int(m[0]) for d in dates if (m:=re.search(r'20\d{2}',d))),None)
+    scored=[]
+    for profile in read_json(profile_path)['profiles']:
+        name=norm(profile['bridge'])
+        similarity=max(1.0 if name and name in norm(n) else SequenceMatcher(None,name,norm(n)).ratio() for n in names)
+        if similarity>=.85:scored.append((similarity,profile))
+    if not scored:return 'representative',None
+    best=max(x[0] for x in scored);candidates=[p for score,p in scored if score==best]
+    if year:
+        earlier=[p for p in candidates if p['year']<=year]
+        profile=max(earlier,key=lambda p:p['year']) if earlier else min(candidates,key=lambda p:abs(p['year']-year))
+    else:profile=max(candidates,key=lambda p:p['year'])
+    return profile['style'],profile
 
 def selection(model,doc,findings,path):
     rows=findings['diseases']
-    if len(rows)<=80:
-        result={'ids':[d['id'] for d in rows],'reason':'Small ledger: retain every verified current observation.','total_candidates':len(rows)};save_json(path,result);return result
+    style,profile=writing_style(doc,findings)
+    if len(rows)<=80 or style=='exhaustive':
+        result={'ids':[d['id'] for d in rows],'reason':'Retain every verified current observation: small ledger or exhaustive style learned from training.','total_candidates':len(rows),'style':style,'style_profile':profile};save_json(path,result);return result
     grouped=group_rows(rows,doc);index={b['id']:b for b in doc['blocks']}
     # Current summaries supply exact physical counts; computed fallback counts only ledger entries.
-    summaries=[b for b in doc['blocks'] if b.get('kind')!='row' and re.search(r'存在|共计|共发现|发现.*处|总面积|总长',b['text']) and re.search(r'裂|蚀|漏|渗|碱|缺|脱|损',b['text']) and not re.search(r'上一次|上次|历年|对比|比较|往年',b['section']) and len(b['text'])<1200]
+    summaries=[{**b,'summary_context':' '.join(x['text'][:180] for x in doc['blocks'][max(0,i-2):i] if x.get('kind')!='row')} for i,b in enumerate(doc['blocks']) if b.get('kind')!='row' and re.search(r'存在|共计|共发现|发现.*处|总面积|总长',b['text']) and re.search(r'裂|蚀|漏|渗|碱|缺|脱|损',b['text']) and not re.search(r'上一次|上次|历年|对比|比较|往年',b['section']) and len(b['text'])<1200]
     # Local summaries, rather than the large front-page synopsis, keep each call bounded.
     def run(start):
         groups=grouped[start:start+12];items=[];chosen={}
         for n,group in enumerate(groups,start):
             first=index[group[0]['source']];at=int(first['id'][1:])
-            nearby=sorted(summaries,key=lambda b:abs(int(b['id'][1:])-at))[:8]
+            terms=[t for t in ['左幅','右幅','主桥','引桥','箱梁内','箱梁外','主梁','横向联系','桥墩','桥台','支座','桥面铺装','护栏'] if t in first.get('table_context',first['section'])]
+            def rank(b):
+                text=b['section']+' '+b['summary_context']+' '+b['text']
+                return -sum(20 for t in terms if t in text)+abs(int(b['id'][1:])-at)/1000
+            nearby=sorted(summaries,key=rank)[:8]
             for b in nearby:chosen[b['id']]=b
             examples=group[:3]+sorted(group,key=lambda d:len(d['description']),reverse=True)[:2]+group[-1:]
             unique={d['id']:{k:(d[k][:400] if k in ['description','part'] else d[k]) for k in ['id','part','kind','description','source']} for d in examples}
@@ -65,7 +92,8 @@ def selection(model,doc,findings,path):
             bounded.append(b);used+=len(b['text'])
         chosen={b['id']:b for b in bounded}
         evidence={b['id']:b for b in chosen.values()}
-        messages=[{'role':'system','content':'你是桥梁分析报告病害表编审。完整台账已保存，现在逐组整理汇总，禁止丢弃任一给定组。按表题明确左幅/右幅、主桥/引桥、箱梁内/外，part用宏观部位，不让示例中的第几跨代替整个分组。kind用标签的简洁病名。同组所有观测均保留关联，example_ids选本组最先出现的1-3项典型位置，优先保留最早项目及严重例外，不能使用其他组ID。若原文摘要中有精确对应同侧同构件同类型的数量，可summary_source和summary_quote逐字摘取该连续片段；不要把其他构件的计数混入，不要改写原文，不要引用历史数量。没有准确对应摘要就两个字段都空。程序恢复原文例子和计数，不要自行计算或编造总长度/面积。每个组ID必须返回一次，只调用organize_groups。'}, {'role':'user','content':json.dumps({'groups':items,'current_summary_sources':[{'id':b['id'],'section':b['section'],'text':b['text']} for b in chosen.values()]},ensure_ascii=False)}]
+        style_instruction='本报告采用原文代表位置写法：summary_source与summary_quote必须为空；每组通常只选最先出现的1处，裂缝组可选最先出现的2处，另补特别严重例外。不要将多个位置拼成一段。' if style=='representative' else '本报告采用按构件及类型汇总数量的写法；优先逐字引用本次原文对应统计，并选最早的1-3个位置。'
+        messages=[{'role':'system','content':'你是桥梁分析报告病害表编审。完整台账已保存，现在逐组整理汇总，禁止丢弃任一给定组。按表题明确左幅/右幅、主桥/引桥、箱梁内/外，part用宏观部位，不让示例中的第几跨代替整个分组。kind用标签的简洁病名。同组所有观测均保留关联，example_ids选本组最先出现的1-3项典型位置，优先保留最早项目及严重例外，不能使用其他组ID。若原文摘要中有精确对应同侧同构件同类型的数量，可summary_source和summary_quote逐字摘取该连续片段；不要把其他构件的计数混入，不要改写原文，不要引用历史数量。没有准确对应摘要就两个字段都空。程序恢复原文例子和计数，不要自行计算或编造总长度/面积。每个组ID必须返回一次，只调用organize_groups。'+style_instruction}, {'role':'user','content':json.dumps({'groups':items,'current_summary_sources':[{'id':b['id'],'section':b['section'],'context':b['summary_context'],'text':b['text']} for b in chosen.values()]},ensure_ascii=False)}]
         for attempt in range(2):
             msg=model.call(messages,[SUMMARY],{'type':'function','function':{'name':'organize_groups'}},max_tokens=4500)
             try:
@@ -78,7 +106,9 @@ def selection(model,doc,findings,path):
                 for c in msg.get('tool_calls',[]):messages.append({'role':'tool','tool_call_id':c['id'],'content':str(e)})
         raise RuntimeError('Group organization failed')
     with concurrent.futures.ThreadPoolExecutor(max_workers=model.concurrency) as executor:parts=list(executor.map(run,range(0,len(grouped),12)))
-    final=[d for part in parts for d in part]
+    organized=[d for part in parts for d in part]
+    final=[{**example,'part':g['part']} for g in organized for example in g['examples']] if style=='representative' else organized
+    final=[dict(d) for d in final]
     for i,d in enumerate(final,1):d['id']=f'A{i:05d}'
-    result={'ids':[d['id'] for d in final],'rows':final,'reason':'Every source-table/component and normalized disease-type group retained; exact source summary plus original examples, complete ledger references.','total_candidates':len(rows),'selected':len(final),'groups':len(grouped)}
+    result={'ids':[d['id'] for d in final],'rows':final,'reason':'Writing style learned from other training reports for the same bridge and closest earlier year. All component/type groups and full ledger links retained; published '+style+' observations use original source text.','total_candidates':len(rows),'selected':len(final),'groups':len(grouped),'style':style,'style_profile':profile,'organized_groups':organized}
     save_json(path,result);return result

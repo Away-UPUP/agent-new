@@ -30,6 +30,17 @@ class ContractTests(unittest.TestCase):
         def no_diseases(*args):return {k:[] for k in FINDINGS['properties']}
         with tempfile.TemporaryDirectory() as td,patch('bridge_agent.extraction.extract_batch',side_effect=no_diseases):
             got=extract_all(None,doc,Path(td));self.assertEqual(len(got['diseases']),1);self.assertEqual(got['diseases'][0]['table_context'],'左幅主桥')
+    def test_compound_score_quote_restores_original_not_paraphrase(self):
+        data={k:[] for k in FINDINGS['properties']};source='主桥总体评分83.2；引桥总体评分75.2。'
+        data['facts']=[{'field':'总体评分','value':'主桥83.2；引桥75.2','source':'B1','quote':'主桥83.2，引桥75.2'}]
+        got=validate_findings(data,[{'id':'B1','text':source,'section':''}]);self.assertEqual(got['facts'][0]['quote'],source);self.assertTrue(got['facts'][0]['quote_reconstructed'])
+        data['facts'][0].update(value='主桥93.2；引桥75.2',quote='改写')
+        with self.assertRaises(ValueError):validate_findings(data,[{'id':'B1','text':source,'section':''}])
+    def test_style_profile_uses_other_year_and_excludes_validation_labels(self):
+        from bridge_agent.selection import writing_style
+        a,p=writing_style({'filename':'2、马桑溪大桥.docx'},{'facts':[{'field':'报告日期','value':'2018年12月31日'}]});self.assertEqual(a,'representative');self.assertEqual(p['year'],2017)
+        a,p=writing_style({'filename':'4、高家花园.docx'},{'facts':[{'field':'报告日期','value':'2018年12月31日'}]});self.assertEqual(a,'aggregate');self.assertEqual(p['year'],2017)
+        root=Path(__file__).resolve().parents[1];profiles=json.loads((root/'assets/style_profiles.json').read_text());self.assertFalse(set(x['label'] for x in profiles['profiles'])&set(profiles['excluded_labels']))
     def test_main_bridge_overall_score_is_not_superstructure_score(self):
         from bridge_agent.extraction import validate_metric_scope
         with self.assertRaises(ValueError):validate_metric_scope('上部结构评分','该桥主桥总体技术状况评定为83.2，等级为二类')

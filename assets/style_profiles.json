@@ -1,0 +1,4100 @@
+{
+  "method": "Nearest bridge identity and closest earlier report year; a writing-style prior only. More than 200 label rows => exhaustive; aggregate phrasing in >15% of rows => aggregate; otherwise representative. Development matrix labels excluded. No report facts, scores or disease answers stored.",
+  "excluded_labels": [
+    "赛题一_训练集标签/2017年/51-机场路立交桥-含有对比年度的信息提取报告.docx",
+    "赛题一_训练集标签/2014年/59   人行天桥K31检测报告-无对比年度的信息提取报告.docx",
+    "赛题一_训练集标签/2017年/60-新桥中桥-含有对比年度的信息提取报告.docx",
+    "赛题一_训练集标签/2018年/2、马桑溪大桥-含有对比年度的信息提取报告.docx",
+    "赛题一_训练集标签/2018年/4、高家花园-含有对比年度的信息提取报告.docx"
+  ],
+  "profiles": [
+    {
+      "bridge": "白房子中桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 82,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-011白房子中桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "尹家湾大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 58,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-012尹家湾大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "太平水库大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 88,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-013 太平水库大桥报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "石子山中桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 67,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-014石子山中桥0-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "梁滩河大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 109,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-015梁滩河大桥0-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "高滩岩互通B匝道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 34,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-016高滩岩B匝道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "高滩岩互通C匝道桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 38,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-017高滩岩C匝道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "芭蕉湾桥式通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 145,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-018芭蕉湾桥式通道报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "皂角林桥式通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 97,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-019皂角林桥式通道报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新房子桥式通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 46,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-020新房子桥式通道报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "内环车行桥梁尹家湾桥式通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 110,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-021尹家湾桥式通道报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "内环车行桥梁青龙嘴桥式通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 51,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-022青龙嘴桥式通道报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "内环车行桥梁鄢家院子桥式通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 51,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-023鄢家院子桥式通道报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "内环车行桥梁祝家湾桥式通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 58,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-024祝家湾桥式通道报告0-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "内环车行桥梁官方院子桥式通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 65,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-025官方院子桥式通道报告0-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "内环车行桥梁三重堂立交桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-026三重堂立交桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "内环车行桥梁土主中学立交桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-027土主中学立交桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "内环车行桥梁天心桥立交桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-028天心桥立交桥0-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "内环车行桥梁学堂堡立交桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 8,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-029学堂堡立交0-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "内环车行桥梁王家桥特大桥",
+      "year": 2012,
+      "style": "exhaustive",
+      "label_rows": 362,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/201310-030王家桥特大桥报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "一天门大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/一天门大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "丁家院大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 42,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/丁家院大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K38+576人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 5,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K38+576人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K39+380上跨车行桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K39+380上跨车行桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K39+900上跨车行桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K39+900上跨车行桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K40+300上跨车行桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K40+300上跨车行桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K40+696人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K40+696人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K40+924人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K40+924人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K41+128人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 1,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K41+128人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K41+500上跨车行桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K41+500上跨车行桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K43上跨车行桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K43+000上跨桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K44+500上跨车行桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K44+500上跨桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K45+735无名桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K45+735无名桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K46+500上跨车行桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K46+500上跨车行桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K46+500无名桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K46+500无名桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K47+704无名桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K47+704无名桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K49+400上跨车行桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K49+400上跨车行桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K51+614人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 1,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K51+614人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K52+104无名桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K52+104无名桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K52+382无名桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 21,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K52+382无名桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K52+704无名桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 21,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K52+704无名桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路K53+100上跨车行桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/上界路K53+100上跨桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "偏岩子大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 37,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/偏岩子大桥-无对比年度的信息提取报告 (1).docx"
+    },
+    {
+      "bridge": "凤中主线桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 26,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/凤中主线桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "华岩寺大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 30,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/华岩寺大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "华岩立交主线桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 23,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/华岩立交主线桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "华陶跨线桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/华陶跨线桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交A-1匝道桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/南山立交A-1匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交A-2匝道桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/南山立交A-2匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交B匝道桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/南山立交B匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交C匝道桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/南山立交C匝道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交D匝道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 1,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/南山立交D匝道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交L匝道桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/南山立交L匝道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南泉立交主线桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/南泉立交主线桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "双凤桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/双凤桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "后溪沟大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 34,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/后溪沟大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "重庆市嘉悦大桥",
+      "year": 2012,
+      "style": "exhaustive",
+      "label_rows": 402,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/嘉悦报告（20130104修改后最后定稿） · 无对比年度定检报告.docx"
+    },
+    {
+      "bridge": "四公里连接线桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/四公里连接线桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "回兴桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/回兴桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大丘坝大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/大丘坝大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大佛寺长江大桥",
+      "year": 2012,
+      "style": "exhaustive",
+      "label_rows": 542,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/大佛寺检查报告2012年度-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大堡桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 23,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/大堡桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大山村互通II号桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/大山村互通II号桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大山村互通I号桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/大山村互通I号桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大渡口主线桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/大渡口主线桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大田坝大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 67,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/大田坝大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "小四沟人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/小四沟人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路川右K0+895人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/川右K0+895人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "建院后门中桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 27,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/建院后门中桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "彭家堡分离式立交桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/彭家堡分离式立交桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝2号人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/成渝2号人行天桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K349+318小桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/成渝K349+318-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K350+047人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/成渝K350+047人行天桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K350+348小桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/成渝K350+348小桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K354+365小桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/成渝K354+365小桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新村分离式立交中桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/新村分离式立交中桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新桥中桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/新桥中桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/机场桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交1#人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/杨公桥1号人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交2#人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 2,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/杨公桥2号人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥AD匝道人行通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 1,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/杨公桥AD匝道人行通道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥A叉口人行通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 1,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/杨公桥A叉口人行通道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥C叉口人行通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 1,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/杨公桥C叉口人行通道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥DE匝道人行通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 2,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/杨公桥DE匝道人行通道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥EC匝道人行通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 2,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/杨公桥EC匝道人行通道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥E叉口人行地通道",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/杨公桥E叉口人行通道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥三孔石拱桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/杨公桥三孔石拱桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥两孔石拱桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/杨公桥两孔石拱桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "果园大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 64,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/果园大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "柏杨湾大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 42,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/柏杨湾大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "桂花新村大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 123,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/桂花新村大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "梨子湾大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 56,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/梨子湾大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "江南立交人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 2,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/江南立交人行天桥检测报告-无对比年度定检报告.docx"
+    },
+    {
+      "bridge": "沙嘴分离式立交桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/沙嘴分离式立交桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝黔高架桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/渝黔高架桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线I号桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/界石立交主线I号桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线VI号桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 39,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/界石立交主线VI号桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线Ⅱ号桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/界石立交主线Ⅱ号桥-无对比年度定检报告.docx"
+    },
+    {
+      "bridge": "界石立交主线Ⅲ号桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/界石立交主线Ⅲ号桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线Ⅳ号桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/界石立交主线Ⅳ号桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线Ⅴ号桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 29,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/界石立交主线Ⅴ号桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "石马河立交",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 26,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/石马河立交-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "砂糖树人行天桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/砂糖树人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "红槽房大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 53,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/红槽房大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "老杨公异形桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/老杨公异形桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "老杨公桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/老杨公桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "花溪河大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/花溪河大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "茶亭大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 35,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/茶亭大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "茶园立交主线桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/茶园立交主线桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "道角村大桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 45,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/道角村大桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "青果林中桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/青果林中桥检测报告-无对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "马桑溪长江大桥",
+      "year": 2012,
+      "style": "exhaustive",
+      "label_rows": 817,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/马桑溪大桥2012年度 · 含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "高家花园大桥",
+      "year": 2012,
+      "style": "exhaustive",
+      "label_rows": 258,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/高家花园大桥检查报告2012年度-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "鸡冠嘴中桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 40,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/鸡冠嘴中桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "黄桷湾主线桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 38,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/黄桷湾主线桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "龙黄路分离式立交桥",
+      "year": 2012,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2012年/龙黄路分离式立交桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DA1匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 33,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-025杨公桥立交DA1匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交ED1匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 36,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-026杨公桥立交ED1匝道桥无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DA-ED匝道桥",
+      "year": 2013,
+      "style": "exhaustive",
+      "label_rows": 223,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-027杨公桥立交DA-ED匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥DB-DC匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 51,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-028杨公桥DB-DC匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DB匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 76,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-029杨公桥立交DB匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DC匝道桥",
+      "year": 2013,
+      "style": "exhaustive",
+      "label_rows": 221,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-030杨公桥DC匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交AC匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 190,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-031杨公桥AC匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交BD1匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 113,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-032杨公桥立交BD1匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交BD2匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 34,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-033杨公桥立交BD2匝道桥报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交BD3匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 196,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-034杨公桥立交BD3匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交EC匝道桥",
+      "year": 2013,
+      "style": "exhaustive",
+      "label_rows": 237,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-035杨公桥立交EC匝道桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人和立交1号桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-036人和立交1号桥报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人和立交2号桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 46,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-037人和立交2号桥报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人和立交3号桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 78,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-038人和立交3号桥报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人和立交4号桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 44,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-039人和立交4号桥报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝怀铁路高架桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 85,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-040渝怀铁路高架桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "五童立交旱桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 46,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-041五童立交旱桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "童家院子立交1号旱桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 76,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-042童家院子1号桥报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "童家院子立交2号旱桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-043童家院子2号旱桥报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙互通式立交I匝道跨线桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 81,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-046虾子蝙立交桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "土主互通立交",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 44,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-048土主互通立交.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K4+800）",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 88,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-049无名桥K4+800.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新村中桥",
+      "year": 2013,
+      "style": "exhaustive",
+      "label_rows": 1022,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-050新村中桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K33+500）",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 42,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-051无名桥K33+500.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K51+300）",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 84,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-052无名桥（K51+300).docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交成渝公路高架桥",
+      "year": 2013,
+      "style": "exhaustive",
+      "label_rows": 525,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-053上桥立交成渝公路高架桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左1匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 121,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-054上桥立交左1匝道桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左2匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 64,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-055上桥立交左2匝道桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左3匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 149,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-056上桥立交左3匝道桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左4匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 99,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-057上桥立交左4匝道桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右1匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 93,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-058上桥立交右1匝道桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右2匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 84,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-059上桥立交右2匝道桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右3匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 76,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-060上桥立交右3匝道桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右4匝道桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 62,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-061上桥立交右4匝道桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "二郎立交主线桥",
+      "year": 2013,
+      "style": "exhaustive",
+      "label_rows": 236,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-062二郎立交主线桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "垭坟堡旱桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 114,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-063垭坟堡旱桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "钟表厂旱桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 78,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-064钟表厂旱桥.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "华陶立交匝道上跨车行桥",
+      "year": 2013,
+      "style": "representative",
+      "label_rows": 25,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-065华陶立交.docx-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "马桑溪长江大桥",
+      "year": 2013,
+      "style": "exhaustive",
+      "label_rows": 745,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-066马桑溪长江大桥报告-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "重庆市内环路段大佛寺长江大桥",
+      "year": 2013,
+      "style": "exhaustive",
+      "label_rows": 728,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-067大佛寺长江大桥报告-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "重庆市内环路段高家花园大桥",
+      "year": 2013,
+      "style": "exhaustive",
+      "label_rows": 598,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2013年/12-068高家花园报告-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "青果林中桥（K8+150）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/100-青果林中桥（K8+150）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "桂花新村大桥（K11+126.7）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 73,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/101-桂花新村大桥2014.11.22-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "中心站C2线匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 8,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/102-中心站立交C2线匝道桥2014.11.22-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "中心站立交D2线匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 8,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/103-中心站立交D2线匝道桥2014.11.22-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "中心站主线桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/104-中心站立交主线桥-无对比年度的信息提取报告2.docx"
+    },
+    {
+      "bridge": "高滩岩互通B匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 39,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/105-高滩岩互通B匝道桥2014.11.23-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "高滩岩互通C匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/106-高滩岩互通C匝道桥2014.11.23-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "土主中学立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/107-土主中学立交桥桥梁检测评估报告2014.11.27-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "祝家湾桥式通道",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 25,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/108-祝家湾桥式通道桥梁检测评估报告2014.11.27-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K33+500）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/109-无名桥(K33+500)桥梁检测评估报告2014.11.28-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K38+220）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 30,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/110-无名桥（K38+220）桥梁检测评估报告2014.11.28-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K38+814）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/111-无名桥（K38+814）桥梁检测评估报告2014.11.28-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K42+517）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/112-无名桥（K42+517）2014.11.28-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K48+572）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 18,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/113无名桥（K48+572）2014.11.28-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "学堂堡C1线匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/114-学堂堡C1线匝道桥2014.11.28-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "二郎立交主线桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 43,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/115-二郎立交主线桥桥梁检测评估报告2014.12.1-含有对比年度的信息提取报告 (1).doc"
+    },
+    {
+      "bridge": "官方院子桥式通道",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/116-官方院子桥式通道桥梁检测评估报告2014.12.1-含有对比年度的信息提取报告 (1).doc"
+    },
+    {
+      "bridge": "1793+710人行地通道",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/117 1793+710人行地通-无对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "无名桥（K45+735）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 21,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/117-无名桥（K45+735）2014.12.1-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "无名桥（K47+704）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/118-无名桥（K47+704）梁检测评估报告2014.12.1-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "上界路无名桥（K52+104）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/119-无名桥（K52+104）桥梁检测评估报告2014.12.1-含有对比年度的信息提取报告（1）.doc"
+    },
+    {
+      "bridge": "杨公桥立交BD2匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/120-杨公桥BD2匝道桥桥梁检测评估报告2014.12.01-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "凤中主线桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 25,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/121-凤中主线桥2014.12.3-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "石马河立交",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 28,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/122-石马河立交桥梁检测评估报告2014.12.3-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "上界路无名桥（K52+382）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 26,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/123-无名桥（K52+382）桥梁检测评估报告2014.12.3-含有对比年度的信息提取报告 (2).doc"
+    },
+    {
+      "bridge": "建院后门中桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 31,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/124-建院后门中桥桥梁检测评估报告2014.12.3-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "茶园立交主线桥（K18+706）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 30,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/125-茶园立交主线桥2014.12.4-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "华岩寺主线桥（K48+942）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 53,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/126-华岩寺主线桥2014.12.4-含有对比年度的信息提取报告 (2).doc"
+    },
+    {
+      "bridge": "四公里连接线桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/127-四公里连接线桥桥梁检测评估报告2014.12.4-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "五童立交旱桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/128-五童立交旱桥桥梁检测评估报告2014.12.4-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "学堂堡B1线匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/129-学堂堡B1线匝道桥2014.12.4-无对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "学堂堡E1线匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/130-学堂堡E1线匝道桥桥梁检测评估报告2014.12.4-无对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "虾子蝙互通式立交Ⅰ匝道跨线桥（K2+202）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 21,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/131-虾子蝙互通式立交Ⅰ匝道跨线桥（K2+202）桥梁检测评估报告2014.12.4-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "杨公桥立交BD3匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/132-杨公桥BD3桥桥梁检测评估报告2014.12.06-含有对比年度的信息提取报告 (1).doc"
+    },
+    {
+      "bridge": "杨公桥立交DA1匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/133-杨公桥DA1匝道桥桥梁检测评估报告2014.12.6-含有对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "柏林水库大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 27,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/134-柏林水库大桥桥梁检测评估报告2014.12.8.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "童家院子3#立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/135-童家院子3号立交桥桥梁检测评估报告2014.12.8.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "童家院子4#立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/136-童家院子4号立交桥桥梁检测评估报告2014.12.8-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "童家院子1#立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 44,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/137-童家院子立交1号立交桥2014.12.8-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "童家院子2#立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/138-童家院子立交2号立交桥2014.12.8-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大丘坝大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 43,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/139-大丘坝大桥桥梁检测评估报告2014.12.10-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DA-ED匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/140-杨公桥DA-ED桥桥梁检测评估报告2014.12.10.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人和立交1号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/141-人和立交1号桥梁检测评估报告2014.12.11.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人和立交2号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/142-人和立交2号桥桥梁检测评估报告2014.12.11-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人和立交3号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 29,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/143-人和立交3号桥桥梁检测评估报告2014.12.11-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交E匝道",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/145-南山立交E匝道2014.12.12-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K4+800）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 37,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/146-无名桥（K4+800）2014.12.12-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "天心桥立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/147-天心桥立交桥2014.12.13-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新房子桥式通道",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/148-新房子桥式通道2014.12.13-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝遂高速跨线桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 32,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/149-渝遂高速跨线桥桥梁检测评估报告2014.12.13-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "柏杨湾大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 48,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/150-柏杨湾大桥2014.12.15-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "红槽房大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 42,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/151-红槽房大桥2014.12.15-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "龙黄路分离式立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 25,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/152-龙黄路分离式立交桥2014.12.15-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交B匝道（K10+091）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/153-南山立交B匝道2014.12.15-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交BD1匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 8,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/154-杨公桥BD1匝道桥桥梁检测评估报告2014.12.15-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大堡桥（老杨公桥综合桥）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 30,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/155-大堡桥桥梁检测评估报告2014.12.17-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DB-DC匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/156-杨公桥DB-DC桥桥梁检测评估报告2014.12.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人和立交4号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/157-人和立交4号桥桥梁检测评估报告2014.12.17-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "向家坡Ⅲ匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 49,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/158-向家坡Ⅲ匝道桥2014.12.17-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "鸡冠嘴中桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/159-鸡冠嘴中桥2014.12.18-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DC匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/160-杨公桥DC匝道桥桥梁检测评估报告2014.12.21-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DB匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/161-杨公桥DB匝道桥桥梁检测评估报告2014.12.22-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交EC匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/162-杨公桥EC匝道桥桥梁检测评估报告2014.12.23-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "鄢家院子桥式通道",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 30,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/163-鄢家院子桥式通道桥梁检测评估报告2014.12.27-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交ED1匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/164-杨公桥ED1匝道桥桥梁检测评估报告2014.12.27-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K46+780）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 30,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/165-无名桥（K46+780）2014.12.28-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥两孔石拱桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/166-杨公桥两孔石拱桥桥梁检测评估报告2014.12.29-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥三孔石拱桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 23,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/167-杨公桥三孔石拱桥2015.01.05-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "白莲湾中桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/168-白莲湾中桥桥梁检测评估报告2015.1.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交AC匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 27,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/169-杨公桥AC匝道桥桥梁检测评估报告2015.1.20-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左2匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 23,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/170-上桥立交左2匝道桥桥梁检测评估报告2015.01.24-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左1匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 49,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/171-上桥立交左1匝道桥桥梁检测评估报告2015.01.25-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左4匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 36,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/172-上桥立交左4匝道桥桥梁检测评估报告2015.01.26-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左3匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 38,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/173上桥立交左3匝道桥桥梁检测评估报告2015.01.27-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "茶亭大桥（K9+500）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 23,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/174-茶亭大桥（K9+500）桥梁检测评估报告2015.1.28-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右1匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 39,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/175-上桥立交右1匝道桥梁检测评估报告2015.01.28-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右2匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/176上桥立交右2匝道桥梁检测评估报告2015.01.28-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右3匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/177-上桥立交右3匝道桥桥梁检测评估报告2015.01.28-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右4匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/178-上桥立交右4匝道桥桥梁检测评估报告2015.01.28-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝公路高架桥(上桥立交主线桥)",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 84,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/179-上桥立交主线桥桥梁检测评估报告2015.01.28-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "黄桷湾主线桥（K6+594.04）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 57,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/180-黄桷湾主线桥（K6+594.04）桥梁检测评估报告2015.2.2-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝黔高架桥 (K37)",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 61,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/181-渝黔高架桥 (K37)桥梁检测评估报告2015.2.2-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "丁家院大桥（K9+305）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 21,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/182-丁家院大桥（K9+305）桥梁检测评估报告2015.2.11-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "一天门大桥（K10+091）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 30,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/183-一天门大桥（K10+091）桥梁检测评估报告2015.2.11-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新桥中桥（K55+500）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/184-新桥中桥（K55+500）桥梁检测评估报告2015.3.18-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "马桑溪长江大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 32,
+      "aggregate_fraction": 0.125,
+      "label": "赛题一_训练集标签/2014年/2014年马桑溪长江大桥正式稿11.23-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "高家花园大桥",
+      "year": 2014,
+      "style": "aggregate",
+      "label_rows": 44,
+      "aggregate_fraction": 0.227,
+      "label": "赛题一_训练集标签/2014年/2014年高家花园大桥正式稿11.23-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程一标1号人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 2,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/27  机场路扩宽改造工程一标1号人行天桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K60+000跨线桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 40,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/30 K60+000跨线桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K1+637跨线桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 45,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/31 K1+637跨线桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程1标肖家河桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 87,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/32 机场路扩宽改造工程1标肖家河桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程二标1号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 91,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/33机场路扩宽改造工程二标1号桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程二标2号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 33,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/34机场路扩宽改造工程二标2号桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程二标3号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 62,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/35机场路扩宽改造工程二标3号桥-无对比年度的信息提取.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程二标4号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 30,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/36机场路扩宽改造工程二标4号桥-无对比年度的信息提取.docx"
+    },
+    {
+      "bridge": "人和立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 61,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/37 人和立交桥(人五路）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交L匝道（K10+091）",
+      "year": 2014,
+      "style": "exhaustive",
+      "label_rows": 227,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/38 南山立交L匝道（K10+091）-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K350+467.4拱桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 33,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/39 成渝K350+467.4拱桥报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "学堂堡立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/39-学堂堡立交桥桥梁检测评估报告2014.11.1-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "重庆市上界路大山村互通I号桥（K38）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/40-大山村互通Ⅰ 号桥2014.11.12-含有对比年度提取报告.docx"
+    },
+    {
+      "bridge": "重庆市上界路大田坝大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 68,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/41-大田坝大桥2014.11.12-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "重庆市上界路道角村大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 54,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/42-道角村大桥2014.11.12-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "重庆市渝黔路南山立交D匝道",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/43-南山立交D匝道2014.11.12-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线Ⅲ号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 8,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/44-界石立交主线Ⅲ号桥2014.11.12-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K0+214.5人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/45  K0+214.5人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线Ⅳ号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/45-界石立交主线Ⅳ号桥2014.11.12-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K0+760人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/46   K0+760人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线Ⅵ号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 36,
+      "aggregate_fraction": 0.083,
+      "label": "赛题一_训练集标签/2014年/46-界石立交主线Ⅵ号桥2014.11.12-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K1+116人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 1,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/47  K1+116人行天桥检测报告00047-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "田坝子大桥（K33+270）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 38,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/47-田坝子大桥（K33+270）桥梁检测评估报告2014.11.12-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K7+676",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 5,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/48   人行天桥K7+676检测报告-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "华陶跨线桥（K42+350）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/48-华陶跨线桥2014.11.12-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K8+496",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/49   人行天桥K8+496检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "白房子中桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/49-白房子中桥2014.11.13-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K21+716",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/50   人行天桥K21+716检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "彭家堡分离式立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/50-彭家堡分离式立交桥2014.11.13-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K23+230",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 2,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/51   人行天桥K23+230检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "三重堂立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/51-三重堂立交桥2014.11.13-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K24+178",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/52   人行天桥K24+178检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "沙嘴分离式立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/52-沙嘴分离式立交桥2014.11.13-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K24+732",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/53   人行天桥K24+732检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "土主互通箱梁桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/53-土主互通箱梁桥2014.11.13-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K25+304",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/54   人行天桥K25+304检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新村分离式立交中桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/54-新村分离式立交中桥2014.11.13-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K26+100",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/55   人行天桥K26+100检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "垭坟堡桥(成渝K352+673.6)",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 34,
+      "aggregate_fraction": 0.029,
+      "label": "赛题一_训练集标签/2014年/55-垭坟堡桥2014.11.13-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K27+100",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/56   人行天桥K27+100检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "尹家湾桥式通道",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/56-家湾桥式通道桥梁检测评估报告2014.11.13-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K29+000",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/57   人行天桥K29+000检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "皂角林桥式通道",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 25,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/57-皂角林桥式通道桥梁检测评估报告2014.11.13-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K29+700",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/58   人行天桥K29+700检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "钟表厂小桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 35,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/58-钟表厂小桥2014.11.13-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K350+348小桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/59-成渝K350+348-2014.11.14-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K38+576",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/60   人行天桥K38+576检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K354+365小桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/60-成渝K354+365-2014.11.14-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K40+696",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 5,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/61   人行天桥K40+696检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "梁滩河大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 63,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/61-梁滩河大桥2014.11.14-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K40+924",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/62   人行天桥K40+924检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "石子山中桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 26,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/62-石子山中桥桥梁检测评估报告2014.11.14-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K41+128",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/63   人行天桥K41+128检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "太平水库大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 47,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/63-太平水库大桥桥梁检测评估报告2014.11.14-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K51+614",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/64   人行天桥K51+614检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "尹家湾大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 70,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/64-尹家湾大桥桥梁检测评估报告2014.11.14-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K54+412",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/65   人行天桥K54+412检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大山村互通II号桥（K38）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 58,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/65-大山村互通II号桥2014.11.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K55+537",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/66   人行天桥K55+537检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "果园大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 88,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/66-果园大桥2014.11.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K60+390人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/67   K60+390人行天桥检测报告-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "花溪河大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 56,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/67-花溪河大桥2014.11.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K71+800人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 1,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/68   K71+800人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "后溪沟大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/68-后溪沟大桥2014.11.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "川右K0+895人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 2,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/69   川右K0+895人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "华岩寺大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 66,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/69-华岩寺大桥2014.11.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交2#人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/70   杨公桥立交2#人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线Ⅰ号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/70-界石立交主线Ⅰ号桥桥梁检测评估报告2014.11.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "江南立交人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/71    江南立交人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线Ⅱ号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 23,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/71-界石立交主线Ⅱ号桥 桥梁检测评估报告2014.11.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝2#人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 5,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/72   成渝2#人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "梨子湾大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 32,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/72-梨子湾大桥2014.11.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K350+047人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/73   成渝K350+047人行天桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "马桑湾大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 121,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/73-马桑湾大桥2014.11.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "界石立交主线V号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 23,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/74-界石立交主线V号桥2014.11.15-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "兰花村小桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/75-兰花村小桥2014.11.15-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南泉立交主线桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/76-南泉立交主线桥桥梁检测评估报告2014.11.15-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交A-1匝道（K10+091）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/77-南山立交A-1匝道2014.11.15-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交A-2匝道（K10+091）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/78-南山立交A-2匝道2014.11.15-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "偏岩子大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 34,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/79-偏岩子大桥2014.11.15-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "青龙嘴桥式通道",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/80-青龙嘴桥式通道2014.11.15-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "水口岩大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 104,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/81-水口岩大桥桥梁检测评估报告2014.11.15-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "王家桥特大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 111,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/82-王家桥特大桥2014.11.15-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "王家滩中桥（K24+455.51）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 54,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/83-王家滩中桥2014.11.15-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K51+300）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/84-无名桥（K51+300）2014.11.15-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新村中桥（K8+806.5）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 28,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/85-新村中桥（K8+806.5）2014.11.17-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "向家坡Ⅱ匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 36,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/86-向家坡Ⅱ匝道桥2014.11.17-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "柏林小桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/87-柏林小桥2014.11.18-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K52+734）",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/88-无名桥（K52+734）2014.11.18-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K56+982小桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/89-无名桥（K56+982）2014.11.18-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K58+062小桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/90-无名桥（K58+062）2014.11.18-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K58+432小桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/91-无名桥（K58+432）2014.11.18-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "向家坡Ⅳ匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 60,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/92-向家坡Ⅳ匝道桥2014.11.18-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "向家坡改线桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/93-向家坡改线桥2014.11.18-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "向家坡主线上跨桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/94-向家坡主线上跨桥2014.11.18-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K349+318小桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/95-成渝K349+318-2014.11.19-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "铁路跨线桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/96-铁路跨线桥桥检测报告2014.11.20-无对比年度的信息提取报告.doc"
+    },
+    {
+      "bridge": "向家坡异形桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/97-向家坡异形桥2024.11.20-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "梁滩河桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/98-梁滩河桥检测报告(全)2024.11.20-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "百步梯大桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 35,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/99-百步梯大桥2014.11.21-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大佛寺长江大桥",
+      "year": 2014,
+      "style": "aggregate",
+      "label_rows": 40,
+      "aggregate_fraction": 0.35,
+      "label": "赛题一_训练集标签/2014年/k3+727大佛寺长江大桥正式稿11.23-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "砂糖树人行天桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/砂糖树天桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交A匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 42,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/虾子蝙立交A匝道桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交BD匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 36,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/虾子蝙立交BD匝道桥检测报告 -无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交C匝道一号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 27,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/虾子蝙立交C匝道1号桥检测报告 -无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交C匝道二号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 38,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/虾子蝙立交C匝道2号桥检测报告 -无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交C匝道三号桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 72,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/虾子蝙立交C匝道3号桥检测报告 -无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交G匝道桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/虾子蝙立交G匝道桥检测报告 -无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/（28）机场立交桥（A）-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "回兴立交桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 5,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/（29）回兴立交桥（B）-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "老杨公桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/（34）老杨公桥（B）-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "老杨公桥异形梁桥",
+      "year": 2014,
+      "style": "representative",
+      "label_rows": 4,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2014年/（35）老杨公桥异形梁桥（B）-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大佛寺长江大桥",
+      "year": 2016,
+      "style": "exhaustive",
+      "label_rows": 263,
+      "aggregate_fraction": 0.004,
+      "label": "赛题一_训练集标签/2016年/2016年大佛寺长江大桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "马桑溪长江大桥",
+      "year": 2016,
+      "style": "representative",
+      "label_rows": 191,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2016年/2016年马桑溪长江大桥报告-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "高家花园大桥",
+      "year": 2016,
+      "style": "representative",
+      "label_rows": 110,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2016年/2016年高家花园大桥报告-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K1+600旱桥",
+      "year": 2016,
+      "style": "representative",
+      "label_rows": 23,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2016年/【102】K1+600旱桥报告-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K350+467.4砼拱桥",
+      "year": 2016,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2016年/【105】成渝K350+467.4砼拱桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "芭蕉湾桥式通道",
+      "year": 2016,
+      "style": "representative",
+      "label_rows": 38,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2016年/【62】芭蕉湾桥式通道-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程1标肖家河桥",
+      "year": 2016,
+      "style": "representative",
+      "label_rows": 66,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2016年/【63】机场路拓宽改造工程1标肖家河桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程二标1号桥",
+      "year": 2016,
+      "style": "representative",
+      "label_rows": 25,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2016年/【64】机场路扩宽改造工程二标1号桥-含对比年度的信息提提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程二标2号桥",
+      "year": 2016,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2016年/【65】机场路扩宽改造工程二标2号桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程二标3号桥",
+      "year": 2016,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2016年/【66】机场路拓宽改造工程二标3号桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程二标4号桥",
+      "year": 2016,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2016年/【67】机场路扩宽改造工程二标4号桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "花溪河大桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 33,
+      "aggregate_fraction": 0.03,
+      "label": "赛题一_训练集标签/2017年/1-花溪河大桥（k26+444.8）检测评估报告2017.12.29-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交A匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/10-虾子蝙立交A匝道桥2017.11.21(1)-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交BD1匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/11-杨公桥bd1匝道桥桥梁检测评估报告-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交BD2匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/12-杨公桥bd2匝道桥桥梁检测评估报告2017.11.29-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交EC匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 23,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/13-杨公桥EC匝道桥桥梁检测评估报告2017.12.1-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "王家桥特大桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 102,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/14-王家桥特大桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "黄桷湾主线桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 48,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/15-黄桷湾主线桥（k6+594.4）-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "高滩岩互通B匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/16-高滩岩互通B线匝道桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "红槽房大桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 79,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/17-红槽房大桥桥梁检测评估报告2017.12.8-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "鸡冠嘴中桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/18-鸡冠嘴中桥(1)-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "偏岩子大桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 46,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/19-偏岩子大桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K58+062小桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 41,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/2-k58+062小桥检测评估报告2017.12.01-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右1匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 28,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/20-上桥立交右1匝道桥桥梁检测评估报告(改）-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右2匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/21-上桥立交右2匝道桥桥梁检测评估报告(改）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右3匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/22-上桥立交右3匝道-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交右4匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/23-上桥立交右4匝道桥桥梁检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左1匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 34,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/24-上桥立交左1匝道桥桥梁检测评估报告 (改）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左2匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 21,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/25-上桥立交左2匝道桥桥梁检测评估报告（改）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥左3匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 26,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/26-上桥立交左3匝道桥桥梁检测评估报告（改）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上桥立交左4匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 27,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/27-上桥立交左4匝道桥桥梁检测评估报告（改）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "王家滩中桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 35,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/28-王家滩中桥（K24+427.8）检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交BD匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/29-虾子蝙立交BD匝道桥桥梁检测评估报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K58+432小桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/3-K58+432小桥检测评估报告2017.12.01-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交C匝道一号桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/30-虾子蝙立交C匝道1号桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交C匝道二号桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/31-虾子蝙立交C匝道2号桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交G匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/32-虾子蝙立交G匝道桥桥梁检测评估报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新村中桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 72,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/33-新村中桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新华立交C匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/34-新华立交C匝道-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新华立交E匝道1号桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/35-新华立交E匝道1号桥桥梁检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交AC匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 28,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/36-杨公桥ac匝道桥检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DA1匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 8,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/37-杨公桥DA1匝道-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DC匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/38-杨公桥DC匝道桥桥梁检测评估报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交ED1匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/39-杨公桥ED1匝道-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥DB-DC匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/4-杨公桥DB-DC桥检测报告2017.12.01-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交BD3匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/40-杨公桥立交BD3匝道桥桥梁检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DA-ED匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 21,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/41-杨公桥立交DA-ED匝道桥桥梁检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交DB匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/42-杨公桥立交DB匝道桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝遂立交A线1号桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/43-渝遂立交a线1号桥桥梁检测评估报告（改）-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝遂立交C线匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/44-渝遂立交C线匝道桥桥梁检测评估报告（改）-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝遂立交D线匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 3,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/45-渝遂立交D线匝道桥桥梁检测评估报告（改）-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "回兴桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 18,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/46-回兴桥检测评估报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝遂立交A线2号桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 8,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/47-渝遂立交a线2号桥检测评估报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝遂立交B线匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/48-渝遂立交B线匝道桥检测评估报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝遂立交E线匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 5,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/49-渝遂立交E线匝道桥检测评估报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K56+982小桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/5-K56+982小桥2017.12.01-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "高滩岩互通C匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/50-高滩岩互通C匝道桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "马桑湾大桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 34,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/52-马桑湾大桥桥梁检测评估报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "水口岩大桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/53-水口岩大桥桥梁检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K4+800）",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 18,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/54-无名桥（k4+800）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新华立交E匝道2号桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 9,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/55-新华立交e匝道2号桥桥梁检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新华立交G匝道1号桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/56-新华立交G匝道1号桥检测评估报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新华立交G匝道2号桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/57-新华立交G匝道2号桥桥梁检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新华立交H匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 8,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/58-新华立交H匝道桥桥梁检测评估报告2017.12.14-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新华立交LK7+159车行天桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/59-新华立交LK7+159车行天桥-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南泉立交主线桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/6-南泉立交线桥1121-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "虾子蝙立交C匝道三号桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 18,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/61-虾子蝙立交c匝道三号桥桥梁检测报告(1)-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝遂立交F线匝道桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/62-渝遂立交F线匝道桥检测评估报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "鹿角立交上跨车行桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/63-鹿角立交上跨车行桥检测报告-无对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "彭家堡分离式立交桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 35,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/7-彭家堡分离式立交桥1121-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "青果林中桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/8-青果林中桥检测报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "沙嘴分离式立交桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/9-沙嘴分离式立交桥2017.12.02-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大佛寺长江大桥",
+      "year": 2017,
+      "style": "aggregate",
+      "label_rows": 102,
+      "aggregate_fraction": 0.304,
+      "label": "赛题一_训练集标签/2017年/HRQL-201712-219大佛寺长江大桥报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "高家花园大桥",
+      "year": 2017,
+      "style": "aggregate",
+      "label_rows": 50,
+      "aggregate_fraction": 0.28,
+      "label": "赛题一_训练集标签/2017年/HRQL-201712-220高家花园大桥报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "嘉悦大桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 36,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/HRQL-201712-221嘉悦大桥报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "马桑溪长江大桥",
+      "year": 2017,
+      "style": "representative",
+      "label_rows": 74,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2017年/HRQL-201712-222马桑溪长江大桥报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上跨铁路桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/10、上跨铁路桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K40+924",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/10、人行天桥 K40+924-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K41+128",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 18,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/11、人行天桥K41+128-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "梁滩河桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/11、梁滩河桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K60+390人行天桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/12、 K60+390人行天桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "梁滩河大桥（K17+952.53）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 40,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/12、梁滩河大桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "中心站C2线匝道桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/13、中心站C2线匝道-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "川右K0+895人行天桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/13、川右K0+895人行天桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "中心站D2线匝道桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 23,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/14、中心站D2线匝道桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥立交2号人行天桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/14、杨公桥2号人行立交-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K0+760人行天桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 10,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/15、K0+760人行天桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "中心站主线桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/15、中心站主线桥报告-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K0+214.5人行天桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/16、 K0+214.5人行天桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "上界路无名桥(K33+500)",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/16、无名桥（K33+500）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程一标1号人行天桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/17、机场路扩宽改造工程一标1号人行天桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "田坝子大桥（K33+270）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 84,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/17、田坝子大桥（K33+270）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K7+676",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/18、人行天桥K7+676-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大田坝大桥（K34+400）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 130,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/18、大田坝大桥（K34+400）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K8+496",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/19、人行天桥 K8+496-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "梨子湾大桥（K35+510）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 76,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/19、梨子湾大桥（K35+510）-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "三重堂立交桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/1、三重堂立交桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K55+537",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/1、人行天桥 K55+537-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大佛寺长江大桥",
+      "year": 2018,
+      "style": "exhaustive",
+      "label_rows": 1162,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/1、大佛寺大桥 -含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "果园大桥（K36+453）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 101,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/20、果园大桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "道角村大桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 103,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/21、道角村大桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝黔高架桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 53,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/22、渝黔高架桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "华岩寺主线桥（K48+942）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 78,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/23、华岩寺主线桥（K48+942）-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "华岩寺大桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 49,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/24、华岩寺大桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "凤中主线桥（K52+492）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 36,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/25、凤中主线桥（K52+492）-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K349+318小桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 12,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/26、成渝K349+318小桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K0+850小桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 21,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/27、K0+850小桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K354+365小桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/28、成渝K354+365小桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "二郎立交主线桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 56,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/29、二郎立交主线桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K21+716人行天桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 19,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/2、人行天桥 K21+716-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "土主互通箱梁桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 30,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/2、土主互通箱梁桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "无名桥（K46+780）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 83,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/30、k46+780-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "垭坟堡桥(成渝K352+673.6)",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 30,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/31、垭坟堡-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "兰花村小桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/32、兰花村小桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "钟表厂小桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 36,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/33、钟表厂小桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝K350+467.4砼拱桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/34、成渝K350+467.4砼拱桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "成渝公路高架桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 78,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/35、成渝立交高架桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "柏林水库大桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 43,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/36、柏林水库-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "柏林小桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/37、柏林小桥-含对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大丘坝大桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 49,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/38、大丘坝大桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "大堡桥（老杨公桥综合桥）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 40,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/39、大堡桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K23+230",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 13,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/3、人行天桥 K23+230-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "嘉悦大桥",
+      "year": 2018,
+      "style": "aggregate",
+      "label_rows": 28,
+      "aggregate_fraction": 0.679,
+      "label": "赛题一_训练集标签/2018年/3、嘉悦大桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "土主中学立交桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/3、土主中学立交桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "老杨公桥圬工拱桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 37,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/40、老杨公桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "老杨公桥异型梁桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/41、老杨公桥异形梁桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥两孔石拱桥（排洪工程）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 29,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/42、杨公桥两孔石拱桥（排洪工程）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "杨公桥三孔石拱桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/43、杨公桥三孔石拱桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "建院后门中桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 37,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/44、建院后门中桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "石马河立交",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 31,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/45、石马河立交桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程1标肖家河桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 27,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/46、机场路扩宽改造工程1标肖家河桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程二标1号桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 20,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/47、机场路扩宽改造工程二标1号桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "机场路扩宽改造工程二标2号桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 26,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/48、机场路扩宽改造工程二标2号桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K1+600旱桥（渝怀铁路高架桥）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 41,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/49、K1+600旱桥（渝怀铁路高架桥）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K24+178",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 32,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/4、人行天桥 K24+178.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "天心桥立交桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/4、天心桥立交桥.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "新村分离式立交中桥（K8+700）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 24,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/50、新村分离式立交中桥（K8+700）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "丁家院大桥（K9+305）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 37,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/51、丁家院大桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "茶亭大桥（K9+700）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 41,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/52、茶亭大桥（K9+700）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "一天门大桥（K10+091）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 47,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/53、一天门大桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交A-1匝道（K10+091）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 5,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/54、南山立交A-1匝道-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交A-2匝道（K10+091）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 7,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/55、南山A-2匝道-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交D匝道（K10+091）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 49,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/56、南山立交D匝道（K10+091）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交E匝道（K10+091）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 8,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/57、南山立交E匝道（K10+091）-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "南山立交L匝道（K10+091）",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 38,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/58、南山立交L匝道-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K24+732",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 26,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/5、人行天桥K24+732.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "学堂堡立交桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 14,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/5、学堂堡立交桥.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K3+100人行天桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 11,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/6、人行天桥K3+100-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "学堂堡B1线匝道桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 22,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/6、学堂堡B1线匝道桥.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "K0+160人行天桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 17,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/7、人行天桥K0+160.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "学堂堡C1线匝道桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 6,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/7、学堂堡C1线匝道桥.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K38+576",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 25,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/8、人行天桥K38+576.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "学堂堡E1线匝道桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 15,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/8、学堂堡E1线匝道桥.docx-有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "人行天桥K40+696",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 18,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/9、K40+696人行天桥-含有对比年度的信息提取报告.docx"
+    },
+    {
+      "bridge": "渝遂高速跨线桥",
+      "year": 2018,
+      "style": "representative",
+      "label_rows": 16,
+      "aggregate_fraction": 0.0,
+      "label": "赛题一_训练集标签/2018年/9、渝遂高速跨线桥-含有对比年度的信息提取报告.docx"
+    }
+  ]
+}

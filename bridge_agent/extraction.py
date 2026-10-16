@@ -75,6 +75,8 @@ def validate_findings(data, blocks):
             # Restore the actual source span when the value itself is exact; never keep a rewritten quote.
             if fact['value'] and fact['value'] in source:
                 at=source.index(fact['value']);fact['quote']=source[max(0,at-50):at+len(fact['value'])+70];fact['quote_reconstructed']=True
+            elif '评分' in fact['field'] and re.search(r'主桥|引桥|左幅|右幅',fact['value']) and set(re.findall(r'\d+(?:\.\d+)?',fact['value'])) and {Decimal(n) for n in re.findall(r'\d+(?:\.\d+)?',fact['value'])}<={Decimal(n) for n in re.findall(r'\d+(?:\.\d+)?',source)} and all(term in source for term in re.findall(r'主桥|引桥|左幅|右幅',fact['value'])):
+                fact['quote']=source;fact['quote_reconstructed']=True
             else:raise ValueError('Fact quote absent: '+fact['field']+' '+fact['source']+' actual='+source[:800])
         from .render import normalize_date
         number_text=normalize_date(fact['quote']) if fact['field']=='报告日期' else fact['quote']
