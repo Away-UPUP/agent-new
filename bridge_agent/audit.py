@@ -14,11 +14,13 @@ def label_data(doc):
     for rows in doc['tables']:
         if not rows:continue
         h=rows[0]
-        if h[0]=='字段':
-            for row in rows[1:]:
+        if h[0]=='字段' or h[0]=='桥梁名称':
+            for row in (rows[1:] if h[0]=='字段' else rows):
                 if len(row)>=2:summary[row[0]]=row[1];descriptions[row[0]]=row[2] if len(row)>2 else ''
         elif h[:2]==REC_HEADERS[:2]:recs.extend(rows[1:])
-        elif h[:3]==DISEASE_HEADERS[:3]:diseases.extend(rows[1:])
+        elif len(h)>=6 and any('是否新增' in c for c in h):
+            for row in rows[1:]:
+                diseases.append(row if len(h)==7 else ['']+row)
     return {'summary':summary,'descriptions':descriptions,'recommendations':recs,'diseases':diseases}
 
 def norm(s):

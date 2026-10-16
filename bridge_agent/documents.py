@@ -1,5 +1,5 @@
 from __future__ import annotations
-import hashlib, json, re, subprocess, tempfile, time
+import hashlib, json, re, subprocess, tempfile, time, shutil, os, signal
 from pathlib import Path
 from zipfile import ZipFile
 from lxml import etree, html
@@ -35,10 +35,14 @@ def converted(path, cache):
     target.parent.mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='bridge-lo-') as td:
         td=Path(td); incoming=td/'input.doc'; incoming.write_bytes(path.read_bytes())
-        p=subprocess.run(['libreoffice','-env:UserInstallation='+ (td/'profile').as_uri(), '--headless','--convert-to','docx','--outdir',str(td),str(incoming)],capture_output=True,timeout=240)
+        p=subprocess.Popen(['libreoffice','-env:UserInstallation='+ (td/'profile').as_uri(), '--headless','--convert-to','docx','--outdir',str(td),str(incoming)],stdout=subprocess.PIPE,stderr=subprocess.PIPE,start_new_session=True)
+        try:p.communicate(timeout=480)
+        except subprocess.TimeoutExpired:
+            os.killpg(p.pid,signal.SIGKILL);p.communicate()
+            raise RuntimeError('LibreOffice DOC conversion exceeded 480 seconds: '+path.name)
         result=td/'input.docx'
         if p.returncode or not result.exists(): raise RuntimeError('LibreOffice DOC conversion failed: '+path.name)
-        result.replace(target)
+        staging=target.with_suffix('.tmp.docx');shutil.copyfile(result,staging);staging.replace(target)
     return target
 
 def txt(el):
