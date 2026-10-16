@@ -1,6 +1,6 @@
 # 性能实测与取舍
 
-所有运行使用 .env 指定的 gpt-6-luna，未更换服务或模型。计时为解析到 DOCX 保存读回的墙钟时间，Token 来自接口 usage；未取得服务端队列、GPU 或 Prefill 指标。
+所有运行使用 .env 指定的 gpt-6-luna，未更换服务或模型。计时为解析到 DOCX 保存读回的墙钟时间，Token 来自接口 usage；`model_requests` 统计带返回结束标记的模型响应，HTTP 错误和重试另列在 `request_errors` / model_metrics.jsonl，不能只用前者推导网络尝试总数；未取得服务端队列、GPU 或 Prefill 指标。
 
 ## 固定短报告与独立请求
 
@@ -22,7 +22,7 @@
 
 后续 82 秒马桑溪与 241 秒高家花园都是有缓存恢复结果，仅说明已保存分块的复用能力，不能作为新报告从零处理性能。详细数据保留在 acceptance_long_repair、acceptance_long_aligned、acceptance_300_aligned 等 JSON。
 
-最新版本冷运行的短报告和 300 页报告结果见 release_v2.json，独立解包冷运行见 clean_package.json；待实测完成后在下方登记精确结果。
+最新版本冷运行的短报告和 300 页报告结果见 delivery_validation.json，独立解包冷运行见 clean_package.json；待实测完成后在下方登记精确结果。
 
 ## 采用的优化和边界
 

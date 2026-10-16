@@ -5,7 +5,9 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from bridge_agent.audit import label_data
 from bridge_agent.documents import parse,save_json
 from validate import SAMPLES
-root=Path(__file__).resolve().parents[1];excluded={str((root/label).resolve()) for _,_,label in SAMPLES};profiles=[]
+root=Path(__file__).resolve().parents[1]
+if not (root/'赛题一_训练集标签').is_dir():raise FileNotFoundError('Training labels are required to relearn style profiles; existing assets were preserved.')
+excluded={str((root/label).resolve()) for _,_,label in SAMPLES};profiles=[]
 for p in sorted((root/'赛题一_训练集标签').rglob('*')):
  if not p.is_file() or p.name.startswith('~$') or str(p.resolve()) in excluded:continue
  data=label_data(parse(p,root/'work/cache'));rows=[r for r in data['diseases'] if len(r)>=7];name=data['summary'].get('桥梁名称','')
