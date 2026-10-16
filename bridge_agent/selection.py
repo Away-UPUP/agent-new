@@ -27,13 +27,20 @@ def materialize_group(spec,group,evidence):
     quote=spec['summary_quote'];sid=spec['summary_source']
     if bool(quote)!=bool(sid):raise ValueError('Summary source and verbatim quote required together')
     if quote and (sid not in evidence or re.sub(r'\s','',quote) not in re.sub(r'\s','',evidence[sid]['text'])):raise ValueError('Summary quote absent from original source')
+    part=spec['part'];context=group[0].get('table_context','')
+    for pair in [('左幅','右幅'),('主桥','引桥')]:
+        present=[term for term in pair if term in context]
+        if len(present)==1:
+            expected=present[0];opposite=pair[1-pair.index(expected)]
+            if opposite in part:raise ValueError('Component scope contradicts original table caption: '+context)
+            if expected not in part:part=expected+part
     selected=[index[i] for i in ids]
     descriptions=list(dict.fromkeys(d['description'] for d in selected))
     if len(group)==1:description=group[0]['description']
     elif quote:description=quote+'（如：'+'；'.join(descriptions)+'）'
     else:description=f'共记录{len(group)}项{spec["kind"]}观测（如：'+'；'.join(descriptions)+'等）'
     sources=list(dict.fromkeys([d['source'] for d in group]+([sid] if sid else [])))
-    return {**group[0],'part':spec['part'],'kind':spec['kind'],'description':description,'sources':sources,'member_ids':[d['id'] for d in group],'member_count':len(group),'summary_source':sid,'summary_quote':quote,'previous':'','new':'','development':'','history_sources':[]}
+    return {**group[0],'part':part,'kind':spec['kind'],'description':description,'sources':sources,'member_ids':[d['id'] for d in group],'member_count':len(group),'summary_source':sid,'summary_quote':quote,'previous':'','new':'','development':'','history_sources':[]}
 
 def selection(model,doc,findings,path):
     rows=findings['diseases']

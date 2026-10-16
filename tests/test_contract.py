@@ -14,10 +14,13 @@ from bridge_agent.model import Model
 class ContractTests(unittest.TestCase):
     def test_grouped_summary_rejects_invented_totals_and_keeps_all_members(self):
         from bridge_agent.selection import materialize_group
-        group=[{'id':f'D{i}','source':f'B{i}','part':'箱梁','kind':'裂缝','description':f'位置{i}裂缝W=0.1mm'} for i in range(1,5)]
+        group=[{'id':f'D{i}','source':f'B{i}','part':'箱梁','kind':'裂缝','description':f'位置{i}裂缝W=0.1mm','table_context':'表1 左幅主桥箱梁内'} for i in range(1,5)]
         spec={'part':'左幅主桥箱梁','kind':'裂缝','summary_source':'B9','summary_quote':'存在4条裂缝','example_ids':['D1','D2']}
         got=materialize_group(spec,group,{'B9':{'text':'左幅主桥存在4条裂缝'}})
-        self.assertEqual(got['member_count'],4);self.assertEqual(got['member_ids'],['D1','D2','D3','D4']);self.assertIn('B4',got['sources']);self.assertIn('存在4条裂缝',got['description'])
+        self.assertEqual(got['member_count'],4);self.assertEqual(got['member_ids'],['D1','D2','D3','D4']);self.assertIn('B4',got['sources']);self.assertIn('存在4条裂缝',got['description']);self.assertIn('左幅',got['part']);self.assertIn('主桥',got['part'])
+        spec['part']='右幅主桥箱梁'
+        with self.assertRaises(ValueError):materialize_group(spec,group,{'B9':{'text':'左幅主桥存在4条裂缝'}})
+        spec['part']='箱梁'
         spec['summary_quote']='存在5条裂缝'
         with self.assertRaises(ValueError):materialize_group(spec,group,{'B9':{'text':'左幅主桥存在4条裂缝'}})
     def test_small_structured_ledger_survives_model_omission(self):
