@@ -25,6 +25,8 @@ def materialize(report,findings):
     counts=Counter(r['category'] for r in recs)
     summary={k:report['basic'][k]['value'] for k in FIELDS[:12]}
     summary['报告日期']=normalize_date(summary['报告日期'])
+    for field in [k for k in FIELDS[:12] if '等级' in k]:
+        if re.fullmatch('[A-Ea-e]',summary[field]):summary[field]=summary[field].upper()+'级'
     summary.update({'病害发展趋势与具体说明':report['trend']['text'],'总体结论':report['overall']['text'],'主要风险点':report['risks']['text'],'建议':'、'.join(f'{counts[c]}条{c}' for c in ['立即处置','尽快维修','预防性养护'])})
     diseases=[]
     for i,d in enumerate(findings['diseases'],1):

@@ -7,6 +7,7 @@ from .audit import FIELDS
 from .documents import compact,search,save_json,read_json
 from .model import function,obj,STR,STRS
 from .extraction import CLAIM
+from .render import normalize_date
 
 VALUE=obj({'value':STR,'sources':STRS})
 FINAL=obj({'basic':obj({k:VALUE for k in FIELDS[:12]}),'has_history':{'type':'boolean'},'trend':CLAIM,'overall':CLAIM,'risks':CLAIM,'conclusion':{'type':'array','items':CLAIM,'minItems':3,'maxItems':5},'recommendation_ids':STRS,'causes':{'type':'array','items':CLAIM},'safety':{'type':'array','items':CLAIM}})
@@ -55,10 +56,14 @@ def validate_report(report,doc,findings,seen):
         if not isinstance(item.get('value'),str) or not item['value']:raise ValueError('Empty basic field '+field)
         sources=item['sources']
         if any(s not in index or s not in seen for s in sources):raise ValueError('Unread or invalid basic source')
+        if item['value']=='无' and any(f['field']==field for f in findings['facts']):raise ValueError('Known field cannot be omitted: '+field+'; use the extracted original value and sources.')
         if item['value']!='无':
             if not sources:raise ValueError('Missing basic evidence '+field)
             evidence=' '.join(index[s]['text'] for s in sources)
-            if any(n not in evidence for n in re.findall(r'\d+(?:\.\d+)?',item['value'])):raise ValueError('Unsupported basic number '+field)
+            if field=='报告日期':evidence=normalize_date(evidence)
+            numbers={Decimal(n) for n in re.findall(r'\d+(?:\.\d+)?',item['value'])}
+            available={Decimal(n) for n in re.findall(r'\d+(?:\.\d+)?',evidence)}
+            if not numbers<=available:raise ValueError('Unsupported basic number '+field+'; use exact evidence including Chinese/Arabic date equivalence.')
         if '评分' in field:
             candidates=[f for f in fact_candidates(findings['facts']) if f['field']==field]
             if len(candidates)>1:
@@ -93,7 +98,7 @@ def synthesize(model,doc,findings,root,work):
             for v in obj:expose(v)
     expose(ov)
     few=read_json(Path(root)/'assets/few_shot.json')
-    messages=[{'role':'system','content':SYSTEM},{'role':'user','content':json.dumps({'filename':doc['filename'],'fields':FIELDS,'few_shot':few,'findings':ov,'instructions':'facts已经按字段-值合并，sources是互相独立的原文出现位置，不是缺失的提取项。评分有冲突时回查表格与结论，优先多处一致数据，不选孤立矛盾数值。若recommendations被截断，请分页读完（与ledger_counts比较）。涉及严重裂缝/支座脱空/构件脱落时核对原文。'},ensure_ascii=False)}]
+    messages=[{'role':'system','content':SYSTEM},{'role':'user','content':json.dumps({'filename':doc['filename'],'fields':FIELDS,'few_shot':few,'findings':ov,'instructions':'facts已经按字段-值合并，sources是互相独立的原文出现位置，不是缺失的提取项。评分有冲突时回查表格与结论，优先多处一致数据，不选孤立矛盾数值。等级有冲突时必须读取最终评估结论和该分项计算后的文字结论，结合BCI评分判断表格中是否有误填；不要简单沿用重复表格中的笔误等级。已知字段不得填无。若recommendations被截断，请分页读完（与ledger_counts比较）。涉及严重裂缝/支座脱空/构件脱落时核对原文。'},ensure_ascii=False)}]
     trace=[];queries=set();submitted=None
     for turn in range(10):
         choice={'type':'function','function':{'name':'submit_report'}} if turn>=8 else 'auto'
