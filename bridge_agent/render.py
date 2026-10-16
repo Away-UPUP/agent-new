@@ -6,12 +6,25 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from .audit import FIELDS,REC_HEADERS,DISEASE_HEADERS
 from .documents import read_json
+import re
+
+def normalize_date(value):
+    digits=dict(zip('零〇○一二三四五六七八九','000123456789'))
+    def number(s):
+        if s.isdigit():return str(int(s))
+        if '十' in s:
+            a,b=s.split('十',1);return str((int(digits.get(a,'1')) if a else 1)*10+(int(digits[b]) if b else 0))
+        return ''.join(digits.get(c,c) for c in s)
+    pattern=r'([\d零〇○一二三四五六七八九]{4})[年./-]([\d一二三四五六七八九十]{1,3})(?:[月./-]([\d一二三四五六七八九十]{1,3})日?)?月?'
+    def replace(m):return number(m[1])+'年'+number(m[2])+'月'+(number(m[3])+'日' if m[3] else '')
+    return re.sub(pattern,replace,value)
 
 
 def materialize(report,findings):
     index={r['id']:r for r in findings['recommendations']};recs=[index[i] for i in report['recommendation_ids']]
     counts=Counter(r['category'] for r in recs)
     summary={k:report['basic'][k]['value'] for k in FIELDS[:12]}
+    summary['报告日期']=normalize_date(summary['报告日期'])
     summary.update({'病害发展趋势与具体说明':report['trend']['text'],'总体结论':report['overall']['text'],'主要风险点':report['risks']['text'],'建议':'、'.join(f'{counts[c]}条{c}' for c in ['立即处置','尽快维修','预防性养护'])})
     diseases=[]
     for i,d in enumerate(findings['diseases'],1):

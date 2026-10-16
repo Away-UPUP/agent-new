@@ -7,7 +7,7 @@ def main():
     parser=argparse.ArgumentParser(description='Word桥梁检测报告分析智能体')
     sub=parser.add_subparsers(dest='command',required=True)
     for name in ['run','batch']:
-        p=sub.add_parser(name);p.add_argument('input');p.add_argument('--root',default=str(Path(__file__).resolve().parent.parent));p.add_argument('--output',default='result');p.add_argument('--work',default='work/jobs');p.add_argument('--concurrency',type=int,choices=[1,2,4],default=4);p.add_argument('--chunk-chars',type=int,default=18000)
+        p=sub.add_parser(name);p.add_argument('input');p.add_argument('--root',default=str(Path(__file__).resolve().parent.parent));p.add_argument('--output',default='result');p.add_argument('--work',default='work/jobs');p.add_argument('--concurrency',type=int,choices=[1,2,4],default=4);p.add_argument('--chunk-chars',type=int,default=22000)
     p=sub.add_parser('serve');p.add_argument('--root',default=str(Path(__file__).resolve().parent.parent));p.add_argument('--host',default='127.0.0.1');p.add_argument('--port',type=int,default=8510);p.add_argument('--concurrency',type=int,choices=[1,2,4],default=4)
     p=sub.add_parser('audit');p.add_argument('--root',default='.')
     p=sub.add_parser('evaluate');p.add_argument('generated');p.add_argument('label');p.add_argument('--output',default='artifacts/evaluation.json')

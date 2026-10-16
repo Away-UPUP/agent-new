@@ -1,5 +1,6 @@
 from __future__ import annotations
 import json,re
+from decimal import Decimal,InvalidOperation
 from collections import Counter
 from pathlib import Path
 from .audit import FIELDS
@@ -19,14 +20,28 @@ recommendation_ids选择需要的R编号，保留源报告所有独立有效建�
 病害成因causes与安全影响safety：优先复用报告明确分析；如果原文未提供成因，可以结合具体病害给专业审慎的可能成因，但inferred=true且文本须含“可能”或“需结合”，不能把推断当事实。安全影响因果推断也须用“可能/若…可能”，不夸大现实承载危险。每项text引用真实sources，不在正文显示B编号；来源另存审计JSON。病害列表由程序从逐批保存的真实记录恢复，你不必重写。
 每项claim必须有引用，除“资料未提供/无法判断”的缺失声明可以sources=[]。facts和工具仅证明来源可追踪，不保证语义真实，遇到冲突要返回原文核验。所有栏目需要完整。'''
 
+def fact_candidates(facts):
+    groups={}
+    for f in facts:
+        value=f['value']
+        if '评分' in f['field']:
+            try:value=str(Decimal(value).normalize())
+            except InvalidOperation:pass
+        key=(f['field'],value)
+        if key not in groups:groups[key]={'field':f['field'],'value':f['value'],'sources':[],'quote_examples':[]}
+        item=groups[key]
+        if f['source'] not in item['sources']:item['sources'].append(f['source'])
+        if len(item['quote_examples'])<2:item['quote_examples'].append(f['quote'][:240])
+    return sorted(groups.values(),key=lambda x:(FIELDS.index(x['field']),-len(x['sources'])))
+
 def overview(findings):
     stats=Counter((d['part'],d['kind']) for d in findings['diseases'])
-    out={'facts':findings['facts'],'recommendations':findings['recommendations'],'disease_count':len(findings['diseases']),'disease_groups':[{'part':p,'kind':k,'count':v} for (p,k),v in stats.most_common(70)],'disease_examples':findings['diseases'][:15],'history_status':findings.get('history_status'), 'coverage':findings['coverage']}
+    out={'facts':fact_candidates(findings['facts']),'recommendations':findings['recommendations'],'disease_count':len(findings['diseases']),'disease_groups':[{'part':p,'kind':k,'count':v} for (p,k),v in stats.most_common(70)],'disease_examples':findings['diseases'][:15],'history_status':findings.get('history_status'), 'coverage':findings['coverage']}
     for key in ['causes','safety','history_notes']:out[key]=findings[key][:12]
     # shortcut: large ledgers are paginated; upgrade selection if local evaluation shows missed rare risks.
     while len(json.dumps(out,ensure_ascii=False))>30000:
         changed=False
-        for key in ['facts','recommendations','disease_groups','disease_examples','causes','safety','history_notes']:
+        for key in ['recommendations','disease_groups','disease_examples','causes','safety','history_notes']:
             if len(out[key])>8:out[key]=out[key][:max(8,len(out[key])//2)];changed=True
         if not changed:raise ValueError('Oversized overview; paginate source claims')
     out['ledger_counts']={k:len(findings[k]) for k in ['facts','diseases','recommendations','causes','safety','history_notes']}
@@ -44,6 +59,14 @@ def validate_report(report,doc,findings,seen):
             if not sources:raise ValueError('Missing basic evidence '+field)
             evidence=' '.join(index[s]['text'] for s in sources)
             if any(n not in evidence for n in re.findall(r'\d+(?:\.\d+)?',item['value'])):raise ValueError('Unsupported basic number '+field)
+        if '评分' in field:
+            candidates=[f for f in fact_candidates(findings['facts']) if f['field']==field]
+            if len(candidates)>1:
+                winner=candidates[0];runner=candidates[1]
+                if len(winner['sources'])>=max(2,2*len(runner['sources'])):
+                    try:
+                        if Decimal(item['value'])!=Decimal(winner['value']):raise ValueError('Conflicting metric '+field+': repeated source consensus '+winner['value']+' at '+str(winner['sources'])+'; recheck and use the supported consensus.')
+                    except InvalidOperation:pass
     if report['basic']['桥梁名称']['value']=='无':raise ValueError('Bridge identity not established')
     for claim in [report['trend'],report['overall'],report['risks']]+report['conclusion']+report['causes']+report['safety']:
         if not claim.get('text') or any(s not in index or s not in seen for s in claim.get('sources',[])):raise ValueError('Invalid or unread claim evidence')
@@ -70,7 +93,7 @@ def synthesize(model,doc,findings,root,work):
             for v in obj:expose(v)
     expose(ov)
     few=read_json(Path(root)/'assets/few_shot.json')
-    messages=[{'role':'system','content':SYSTEM},{'role':'user','content':json.dumps({'filename':doc['filename'],'fields':FIELDS,'few_shot':few,'findings':ov,'instructions':'若概览截断（ledger_counts大于概览条数），请分页读完recommendations及必要事实。涉及严重裂缝/支座脱空/构件脱落时核对原文。'},ensure_ascii=False)}]
+    messages=[{'role':'system','content':SYSTEM},{'role':'user','content':json.dumps({'filename':doc['filename'],'fields':FIELDS,'few_shot':few,'findings':ov,'instructions':'facts已经按字段-值合并，sources是互相独立的原文出现位置，不是缺失的提取项。评分有冲突时回查表格与结论，优先多处一致数据，不选孤立矛盾数值。若recommendations被截断，请分页读完（与ledger_counts比较）。涉及严重裂缝/支座脱空/构件脱落时核对原文。'},ensure_ascii=False)}]
     trace=[];queries=set();submitted=None
     for turn in range(10):
         choice={'type':'function','function':{'name':'submit_report'}} if turn>=8 else 'auto'

@@ -19,7 +19,7 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):source_text({'source':b['id'],'cols':[],'quote':'裂缝W=1.2mm'}, {b['id']:b})
         with self.assertRaises(ValueError):source_text({'source':b['id'],'cols':[5]}, {b['id']:b})
     def test_numeric_fact_and_quote_restore(self):
-        data={k:[] for k in ['facts','diseases','recommendations','causes','safety','history_notes','no_disease_sources']};b={'id':'B1','text':'整体BCI=89.96，为B级','section':''}
+        data={k:[] for k in ['facts','diseases','recommendations','causes','safety','history_notes','no_disease_sources','excluded_diseases']};b={'id':'B1','text':'整体BCI=89.96，为B级','section':''}
         data['facts']=[{'field':'总体评分','value':'89.96','source':'B1','quote':'改写的句子'}]
         got=validate_findings(data,[b]);self.assertTrue(got['facts'][0]['quote_reconstructed']);self.assertIn(got['facts'][0]['quote'],b['text'])
         data['facts'][0].update(value='99.99',quote=b['text'])

@@ -2,7 +2,7 @@
 import concurrent.futures,json,threading,uuid
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse,parse_qs
+from urllib.parse import urlparse,parse_qs,quote
 from .documents import save_json,read_json
 from .pipeline import process
 
@@ -24,15 +24,17 @@ def serve(root,host,port,concurrency):
     def run(directory):
         data=read_json(directory/'upload.json')
         try:
-            m=process(directory/data['filename'],root,root/'result/uploads',directory/'tasks',concurrency)
+            m=process(directory/data['filename'],root,root/'result/uploads'/directory.name,directory/'tasks',concurrency)
             data.update(status='succeeded',stage='complete',output=m['output'])
         except Exception as e:data.update(status='failed',error=str(e))
         save_json(directory/'upload.json',data)
     class Handler(BaseHTTPRequestHandler):
         def log_message(self,format,*args):pass
-        def send(self,code,data,content_type='application/json; charset=utf-8'):
+        def send(self,code,data,content_type='application/json; charset=utf-8',filename=None):
             body=json.dumps(data,ensure_ascii=False).encode() if isinstance(data,(dict,list)) else data
-            self.send_response(code);self.send_header('Content-Type',content_type);self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body)
+            self.send_response(code);self.send_header('Content-Type',content_type);self.send_header('Content-Length',str(len(body)))
+            if filename:self.send_header('Content-Disposition',"attachment; filename*=UTF-8''"+quote(filename))
+            self.end_headers();self.wfile.write(body)
         def do_GET(self):
             path=urlparse(self.path).path
             if path=='/':return self.send(200,HTML.encode(),'text/html; charset=utf-8')
@@ -43,7 +45,7 @@ def serve(root,host,port,concurrency):
                 p=base/parts[2]
                 if (p/'upload.json').exists():
                     s=status(p)
-                    if s.get('status')=='succeeded':return self.send(200,Path(s['output']).read_bytes(),'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                    if s.get('status')=='succeeded':return self.send(200,Path(s['output']).read_bytes(),'application/vnd.openxmlformats-officedocument.wordprocessingml.document',Path(s['output']).name)
             self.send(404,{'error':'Not found or report not complete'})
         def do_POST(self):
             parsed=urlparse(self.path)
