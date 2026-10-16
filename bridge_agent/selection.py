@@ -30,5 +30,18 @@ def selection(model,doc,findings,path):
     chosen=set(ids);by_component=defaultdict(list)
     for (component,kind),rows in groups.items():by_component[component].extend(rows)
     missing=[str(key) for key,rows in by_component.items() if not any(d['id'] in chosen for d in rows)]
+    for repair in range(2):
+        if not missing:break
+        supplement=[g for g in summaries if str(g['table_or_section']) in missing]
+        # Preserve accepted choices and ask only about the omitted component(s).
+        repair_messages=[{'role':'system','content':'补充已完成病害表的遗漏构件。只从提供的示例ID中为每个构件至少选择一个代表项，调用select_diseases；无需重写或重新选择此前已接受的内容。'}, {'role':'user','content':json.dumps({'missing_components':supplement},ensure_ascii=False)}]
+        fixed=model.call(repair_messages,[SELECT],{'type':'function','function':{'name':'select_diseases'}},max_tokens=1200)
+        extra=json.loads(fixed['tool_calls'][0]['function']['arguments'])
+        allowed={d['id'] for g in supplement for d in g['examples']}
+        if not extra.get('ids') or any(i not in allowed for i in extra['ids']):raise ValueError('Invalid supplemental selection')
+        for sid in extra['ids']:
+            if sid not in chosen:ids.append(sid);chosen.add(sid)
+        result['reason']+='；补充：'+extra.get('reason','')
+        missing=[str(key) for key,rows in by_component.items() if not any(d['id'] in chosen for d in rows)]
     if missing:raise ValueError('Selection omitted disease groups: '+','.join(missing[:10]))
     result.update(total_candidates=len(all_rows),selected=len(ids),groups=len(groups));save_json(path,result);return result
