@@ -24,6 +24,14 @@ def materialize(report,findings):
     index={r['id']:r for r in findings['recommendations']};recs=[index[i] for i in report['recommendation_ids']]
     counts=Counter(r['category'] for r in recs)
     summary={k:report['basic'][k]['value'] for k in FIELDS[:12]}
+    # Labels use the main bridge in overview fields; detailed conclusions retain approach-bridge facts.
+    scope=re.match(r'^主桥[：:\s]*(\d+(?:\.\d+)?)',summary['总体评分'])
+    precision=len(scope[1].split('.')[1]) if scope and '.' in scope[1] else None
+    for field in ['总体评分','总体等级','上一次总体评分','上一次总体等级']:
+        match=re.match(r'^主桥[：:\s]*([^；;\n]+)',summary[field])
+        if match:
+            summary[field]=match[1].strip()
+            if '评分' in field and precision is not None and re.fullmatch(r'\d+(?:\.\d+)?',summary[field]):summary[field]=f'{float(summary[field]):.{precision}f}'
     summary['报告日期']=normalize_date(summary['报告日期'])
     for field in [k for k in FIELDS[:12] if '等级' in k]:
         if re.fullmatch('[A-Ea-e]',summary[field]):summary[field]=summary[field].upper()+'级'

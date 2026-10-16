@@ -23,7 +23,7 @@ def selection(model,doc,findings,path):
         summaries.append({'table_or_section':component,'kind':kind,'count':len(rows),'examples':selected})
     request={'all_observations':len(all_rows),'groups':summaries,'major_risks':findings['safety'][:12],'history_notes':findings['history_notes'][:8]}
     if len(json.dumps(request,ensure_ascii=False))>45000:raise ValueError('Selection overview too large; refine component groups')
-    messages=[{'role':'system','content':'你是参赛报告的病害表编审。完整原始观测台账已保存，现根据训练标签的代表性汇总写法组织最终病害表。长报告不用把数百个同类套筒划痕/照片重复项全部展开。按少数宏观构件（主梁、横隔板、拉索、主塔、桥墩桥台、支座、桥面及附属设施）归并病害类型，每个原始表格至少保留一个代表项，同一宏观构件内的近义/组合类型共享代表项，不必每个细分类组单列。常见类型通常选2-3处最典型观测，严重/危险/特别尺寸/独立新增类型优先保留。相同构件与类型的多个位置可保留多行。覆盖主桥/引桥、上部/下部/桥面系，不把不同构件的位置描述合并。只从给定示例ID选择，通常总行数30-80；不编造新观测。仅调用select_diseases，reason概括选取准则。'}, {'role':'user','content':json.dumps(request,ensure_ascii=False)}]
+    messages=[{'role':'system','content':'你是参赛报告的病害表编审。完整原始观测台账已保存，现根据训练标签的代表性汇总写法组织最终病害表。长报告不用把数百个同类套筒划痕/照片重复项全部展开。按少数宏观构件（主梁、横隔板、拉索、主塔、桥墩桥台、支座、桥面及附属设施）归并病害类型，每个原始表格至少保留一个代表项，同一宏观构件内的近义/组合类型共享代表项，不必每个细分类组单列。常见类型通常选最先出现的2处典型原文观测，裂缝组最多4处；另补严重/危险/特别尺寸的少量例外。宏观构件内的近义、组合类型通过同一代表观测覆盖，避免为细分病名各新增一行。原文顺序是重要的选择依据。相同构件与类型的多个位置可保留多行。覆盖主桥/引桥、上部/下部/桥面系，不把不同构件的位置描述合并。只从给定示例ID选择，最终通常30-50行，尽量不超过60行；不要为了覆盖细分术语堆积到上百行。附属机电故障仅选1-2个代表项。不编造新观测。仅调用select_diseases，reason概括选取准则。'}, {'role':'user','content':json.dumps(request,ensure_ascii=False)}]
     msg=model.call(messages,[SELECT],{'type':'function','function':{'name':'select_diseases'}},max_tokens=2500)
     result=json.loads(msg['tool_calls'][0]['function']['arguments']);ids=result['ids']
     if not ids or len(ids)!=len(set(ids)) or any(i not in visible for i in ids):raise ValueError('Invalid disease selection IDs')
