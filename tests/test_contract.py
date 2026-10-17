@@ -12,6 +12,46 @@ from unittest.mock import patch
 from bridge_agent.model import Model
 
 class ContractTests(unittest.TestCase):
+    def test_initial_source_blocks_are_read_evidence_and_unknown_ids_stay_rejected(self):
+        from bridge_agent.agent import synthesize,validate_report
+        basic={k:{'value':'无','sources':[]} for k in FIELDS[:12]};basic['桥梁名称']={'value':'测试桥','sources':['B000001']}
+        claim={'text':'原文未提供详细资料','sources':['B000002'],'inferred':False}
+        report={'basic':basic,'has_history':False,'trend':claim,'overall':claim,'risks':claim,'conclusion':[claim]*3,'recommendation_ids':[],'causes':[claim],'safety':[claim]}
+        doc={'filename':'test.docx','blocks':[{'id':'B000001','section':'','text':'测试桥'},{'id':'B000002','section':'','text':'原文未提供详细资料'}]}
+        findings={k:[] for k in ['facts','recommendations','causes','safety','history_notes']};findings.update(diseases=[{'id':'D1','source':'B000001','part':'桥面','kind':'裂缝','description':'裂缝'}],coverage={'total_blocks':2,'processed_blocks':2,'batches':1})
+        class FakeModel:
+            def call(self,*args,**kwargs):return {'role':'assistant','tool_calls':[{'id':'call1','function':{'name':'submit_report','arguments':json.dumps(report)}}]}
+        with tempfile.TemporaryDirectory() as td:
+            self.assertEqual(synthesize(FakeModel(),doc,findings,Path(__file__).resolve().parents[1],Path(td)),report)
+        with self.assertRaisesRegex(ValueError,r'overall.*B000002.*read_sources'):
+            validate_report(report,doc,findings,{'B000001'})
+        report['risks']={**claim,'sources':['B999999']}
+        with self.assertRaisesRegex(ValueError,r'risks.*B999999'):
+            validate_report(report,doc,findings,{'B000001','B000002'})
+    def test_numbered_short_recommendations_are_not_lost(self):
+        from bridge_agent.recommendations import action_candidates
+        doc={'blocks':[{'id':'B1','kind':'row','section':'','cells':[],'text':'12 处理建议⑴按照规范对桥面坑洼部位进行修补；⑷恢复脱空支座；⑸粘贴桥墩反光标志；'}]}
+        self.assertEqual([c['description'] for c in action_candidates(doc)],['⑴按照规范对桥面坑洼部位进行修补；','⑷恢复脱空支座；','⑸粘贴桥墩反光标志；'])
+    def test_date_search_is_bounded_and_rejected_submission_can_read_missing_evidence(self):
+        from bridge_agent.agent import synthesize
+        basic={k:{'value':'无','sources':[]} for k in FIELDS[:12]};basic['桥梁名称']={'value':'测试桥','sources':['B000001']}
+        claim={'text':'未提供历史资料','sources':['B000030'],'inferred':False}
+        report={'basic':basic,'has_history':False,'trend':claim,'overall':claim,'risks':claim,'conclusion':[claim]*3,'recommendation_ids':[],'causes':[claim],'safety':[claim]}
+        doc={'filename':'test.docx','blocks':[{'id':f'B{i:06d}','section':'','text':'测试桥，未提供历史资料'} for i in range(1,31)]}
+        findings={k:[] for k in ['facts','recommendations','causes','safety','history_notes']};findings.update(diseases=[{'id':'D1','source':'B000001','part':'桥面','kind':'裂缝','description':'裂缝'}],coverage={'total_blocks':30,'processed_blocks':30,'batches':1})
+        choices=[]
+        class FakeModel:
+            def call(self,messages,tools,choice,**kwargs):
+                choices.append(choice);turn=len(choices)
+                if turn<=6:name='search_document';args={'query':f'报告日期 检索{turn}'}
+                elif turn==8:name='read_sources';args={'ids':['B000030']}
+                else:name='submit_report';args=report
+                return {'role':'assistant','tool_calls':[{'id':f'c{turn}','function':{'name':name,'arguments':json.dumps(args)}}]}
+        with tempfile.TemporaryDirectory() as td:
+            self.assertEqual(synthesize(FakeModel(),doc,findings,Path(__file__).resolve().parents[1],Path(td)),report)
+            trace=json.loads((Path(td)/'agent_trace.json').read_text())
+        self.assertIn('检索两次',trace[2]['result']['error']);self.assertIn('B000030',trace[6]['result']['error'])
+        self.assertEqual(choices[6]['function']['name'],'submit_report');self.assertEqual(choices[7],'auto');self.assertEqual(choices[8]['function']['name'],'submit_report')
     def test_grouped_summary_rejects_invented_totals_and_keeps_all_members(self):
         from bridge_agent.selection import materialize_group
         group=[{'id':f'D{i}','source':f'B{i}','part':'箱梁','kind':'裂缝','description':f'位置{i}裂缝W=0.1mm','table_context':'表1 左幅主桥箱梁内'} for i in range(1,5)]

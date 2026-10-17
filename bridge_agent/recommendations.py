@@ -21,7 +21,7 @@ def action_candidates(doc):
         parts=re.split('(?='+numbering+')',text) if len(re.findall(numbering,text))>1 else [text]
         for part in parts:
             part=part.split('（本页以下无正文）')[0].strip()
-            if len(part)<12:continue
+            if not part or (len(part)<12 and not re.match(numbering,part)):continue
             canonical=re.sub(r'\s|^[⑴-⒇①-⑳]|^[（(]?\d+[）).、．]','',part)
             if canonical in seen:continue
             seen.add(canonical);candidates.append({'id':f'C{len(candidates)+1:04d}','source':b['id'],'section':b['section'],'description':part})

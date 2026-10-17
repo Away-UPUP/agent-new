@@ -56,7 +56,8 @@ def validate_report(report,doc,findings,seen):
     for field,item in report['basic'].items():
         if not isinstance(item.get('value'),str) or not item['value']:raise ValueError('Empty basic field '+field)
         sources=item['sources']
-        if any(s not in index or s not in seen for s in sources):raise ValueError('Unread or invalid basic source')
+        invalid=[s for s in sources if s not in index];unread=[s for s in sources if s in index and s not in seen]
+        if invalid or unread:raise ValueError('basic.'+field+' evidence: invalid='+str(invalid)+'; unread='+str(unread)+'; read existing unread IDs with read_sources before resubmitting; replace invalid IDs with real evidence.')
         if item['value']=='无' and any(f['field']==field for f in findings['facts']):raise ValueError('Known field cannot be omitted: '+field+'; use the extracted original value and sources.')
         if item['value']!='无':
             if not sources:raise ValueError('Missing basic evidence '+field)
@@ -75,8 +76,14 @@ def validate_report(report,doc,findings,seen):
                         if Decimal(item['value'])!=Decimal(winner['value']):raise ValueError('Conflicting metric '+field+': repeated source consensus '+winner['value']+' at '+str(winner['sources'])+'; recheck and use the supported consensus.')
                     except InvalidOperation:pass
     if report['basic']['桥梁名称']['value']=='无':raise ValueError('Bridge identity not established')
-    for claim in [report['trend'],report['overall'],report['risks']]+report['conclusion']+report['causes']+report['safety']:
-        if not claim.get('text') or any(s not in index or s not in seen for s in claim.get('sources',[])):raise ValueError('Invalid or unread claim evidence')
+    claims=[(k,report[k]) for k in ['trend','overall','risks']]+[(f'{k}[{i}]',c) for k in ['conclusion','causes','safety'] for i,c in enumerate(report[k])]
+    problems=[]
+    for path,claim in claims:
+        invalid=[s for s in claim.get('sources',[]) if s not in index];unread=[s for s in claim.get('sources',[]) if s in index and s not in seen]
+        if invalid or unread:problems.append(path+': invalid='+str(invalid)+'; unread='+str(unread))
+    if problems:raise ValueError('Claim evidence errors: '+'; '.join(problems)+'. Read existing unread IDs with read_sources before resubmitting; replace invalid IDs with real evidence.')
+    for path,claim in claims:
+        if not claim.get('text'):raise ValueError('Empty claim text: '+path)
         if not claim.get('sources') and not re.search(r'未提供|无法(?:判断|确认|核实)|(?:资料|证据)不足|缺少.*资料|未明确(?:给出|说明|提供)',claim['text']):raise ValueError('Unsupported claim: '+claim['text'][:80])
         if claim.get('inferred') and not re.search(r'可能|需结合|尚需|推测',claim['text']):raise ValueError('Inference must be expressed as uncertainty')
     rec_index={r['id']:r for r in findings['recommendations']}
@@ -92,10 +99,11 @@ def validate_report(report,doc,findings,seen):
 def synthesize(model,doc,findings,root,work):
     index={b['id']:b for b in doc['blocks']};ov=overview(findings);seen=set()
     ov['identity_and_date_sources']=[compact(b) for b in doc['blocks'][:25]]
-    if not any(f['field']=='报告日期' for f in findings['facts']):ov['required_check']='缺少报告日期候选：请检索报告封面落款年月（含中文数字），确认出具日期；不能只因为提取遗漏就填无。'
+    if not any(f['field']=='报告日期' for f in findings['facts']):ov['required_check']='缺少报告日期候选：最多用2次精准检索核查报告封面落款（含中文数字）；仍未找到出具日期则填无。检验日期不等于出具日期，不要反复更换近义词检索。'
     def expose(obj):
         if isinstance(obj,dict):
             for k,v in obj.items():
+                if k=='id' and isinstance(v,str) and v in index:seen.add(v)
                 if k=='source' and isinstance(v,str):seen.add(v)
                 if k in ('sources','history_sources') and isinstance(v,list):seen.update(v)
                 expose(v)
@@ -104,12 +112,14 @@ def synthesize(model,doc,findings,root,work):
     expose(ov)
     few=read_json(Path(root)/'assets/few_shot.json')
     messages=[{'role':'system','content':SYSTEM},{'role':'user','content':json.dumps({'filename':doc['filename'],'fields':FIELDS,'few_shot':few,'findings':ov,'instructions':'facts已经按字段-值合并，sources是互相独立的原文出现位置，不是缺失的提取项。评分有冲突时回查表格与结论，优先多处一致数据，不选孤立矛盾数值。等级有冲突时必须读取最终评估结论和该分项计算后的文字结论，结合BCI评分判断表格中是否有误填；不要简单沿用重复表格中的笔误等级。已知字段不得填无。若recommendations被截断，请分页读完（与ledger_counts比较）。涉及严重裂缝/支座脱空/构件脱落时核对原文。'},ensure_ascii=False)}]
-    trace=[];queries=set();submitted=None
+    trace=[];queries=set();submitted=None;date_searches=0
     for turn in range(10):
-        choice={'type':'function','function':{'name':'submit_report'}} if turn>=8 else 'auto'
+        # Reserve four rounds for submission and targeted evidence repair.
+        choice={'type':'function','function':{'name':'submit_report'}} if turn>=6 and not (trace and trace[-1]['tool']=='submit_report' and 'error' in trace[-1]['result']) else 'auto'
         msg=model.call(messages,TOOLS,choice,max_tokens=6500);messages.append(msg)
         calls=msg.get('tool_calls',[])
         if not calls:
+            trace.append({'turn':turn+1,'tool':'no_tool_call','result':{'error':'Model returned no executable tool call'}});save_json(work/'agent_trace.json',trace)
             messages.append({'role':'user','content':'请使用工具核实或调用submit_report提交完整结果。'});continue
         for call in calls:
             name=call['function']['name'];raw=call['function']['arguments'];result={}
@@ -119,8 +129,11 @@ def synthesize(model,doc,findings,root,work):
                     submitted=validate_report(args,doc,findings,seen);result={'accepted':True}
                 elif name=='search_document':
                     query=args['query']
-                    if query in queries:result={'error':'Repeated search; narrow query or inspect returned source IDs.'}
+                    date_query=bool(re.search(r'日期|落款|签发|出具|封面|编制|盖章|签章',query))
+                    if date_query and date_searches>=2:result={'error':'报告日期已检索两次。若现有原文仍无出具日期则填无；不要用检验日期代替，继续其他核验或submit_report。'}
+                    elif query in queries:result={'error':'Repeated search; narrow query or inspect returned source IDs.'}
                     else:
+                        if date_query:date_searches+=1
                         queries.add(query);bs=search(doc['blocks'],query,limit=12);seen.update(b['id'] for b in bs);result={'blocks':[compact(b) for b in bs]}
                 elif name=='read_sources':
                     ids=args['ids']
@@ -143,4 +156,5 @@ def synthesize(model,doc,findings,root,work):
                     old['content']=json.dumps({'archived':True,'source_ids':ids,'note':'Full original tool result saved in agent_trace.json. Use read_sources or read_findings if needed again.'})
                 if len(json.dumps(messages,ensure_ascii=False))<=55000:break
         if len(json.dumps(messages,ensure_ascii=False))>75000:raise ValueError('Agent context budget exceeded after evidence archiving')
-    raise RuntimeError('Agent did not submit a valid complete report in 10 rounds')
+    last_error=next((t['result']['error'] for t in reversed(trace) if 'error' in t['result']),'No submit_report call was accepted')
+    raise RuntimeError('Agent did not submit a valid complete report in 10 rounds; last error: '+last_error)
