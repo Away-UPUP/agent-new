@@ -1,5 +1,6 @@
 """Organize large ledgers without dropping component/type groups or inventing totals."""
 import concurrent.futures,json,re
+from copy import deepcopy
 from pathlib import Path
 from difflib import SequenceMatcher
 from collections import defaultdict,Counter
@@ -79,8 +80,10 @@ def selection(model,doc,findings,path):
     # Current summaries supply exact physical counts; computed fallback counts only ledger entries.
     summaries=[{**b,'summary_context':' '.join(x['text'][:180] for x in doc['blocks'][max(0,i-2):i] if x.get('kind')!='row')} for i,b in enumerate(doc['blocks']) if b.get('kind')!='row' and re.search(r'存在|共计|共发现|发现.*处|总面积|总长',b['text']) and re.search(r'裂|蚀|漏|渗|碱|缺|脱|损',b['text']) and not re.search(r'上一次|上次|历年|对比|比较|往年',b['section']) and len(b['text'])<1200]
     # Local summaries, rather than the large front-page synopsis, keep each call bounded.
-    def run(start):
-        groups=grouped[start:start+12];items=[];chosen={}
+    def run(start,count=6):
+        groups=grouped[start:start+count];items=[];chosen={}
+        checkpoint=path.with_suffix('')/f'groups_{start:04d}_{len(groups):02d}.json'
+        if checkpoint.exists():return read_json(checkpoint)
         for n,group in enumerate(groups,start):
             first=index[group[0]['source']];at=int(first['id'][1:])
             terms=[t for t in ['左幅','右幅','主桥','引桥','箱梁内','箱梁外','主梁','横向联系','桥墩','桥台','支座','桥面铺装','护栏'] if t in first.get('table_context',first['section'])]
@@ -104,19 +107,37 @@ def selection(model,doc,findings,path):
         evidence={b['id']:b for b in chosen.values()}
         style_instruction='本报告采用原文代表位置写法：summary_source与summary_quote必须为空；每组通常只选最先出现的1处，裂缝组可选最先出现的2处，另补特别严重例外。不要将多个位置拼成一段。' if style=='representative' else '本报告采用按构件及类型汇总数量的写法；summary_source选择提供的精确片段ID（含冒号编号），summary_quote必须为空，程序恢复该原文片段，无需抄写。没有精确对应片段时两字段均空。选最早的1-3个位置。'
         messages=[{'role':'system','content':'你是桥梁分析报告病害表编审。完整台账已保存，现在逐组整理汇总，禁止丢弃任一给定组。按表题明确左幅/右幅、主桥/引桥、箱梁内/外，part用宏观部位，不让示例中的第几跨代替整个分组。kind用标签的简洁病名。同组所有观测均保留关联，example_ids选本组最先出现的1-3项典型位置，优先保留最早项目及严重例外，不能使用其他组ID。若原文摘要中有精确对应同侧同构件同类型的数量，可summary_source和summary_quote逐字摘取该连续片段；不要把其他构件的计数混入，不要改写原文，不要引用历史数量。没有准确对应摘要就两个字段都空。程序恢复原文例子和计数，不要自行计算或编造总长度/面积。每个组ID必须返回一次，只调用organize_groups。'+style_instruction}, {'role':'user','content':json.dumps({'groups':items,'current_summary_sources':[{'id':b['id'],'section':b['section'],'context':b['summary_context'],'text':b['text']} for b in chosen.values()]},ensure_ascii=False)}]
+        expected=[x['id'] for x in items]
+        messages[1]['content']=json.dumps({'expected_ids':expected,'required_group_count':len(expected),**json.loads(messages[1]['content'])},ensure_ascii=False)
+        tool=deepcopy(SUMMARY);schema=tool['function']['parameters']['properties']['groups']
+        schema.update(minItems=len(items),maxItems=len(items))
+        schema['items']['properties']['id']={'type':'string','enum':expected}
+        base=list(messages)
+        def split():
+            mid=len(groups)//2
+            result=run(start,mid)+run(start+mid,len(groups)-mid)
+            save_json(checkpoint,result);return result
         for attempt in range(3):
-            msg=model.call(messages,[SUMMARY],{'type':'function','function':{'name':'organize_groups'}},max_tokens=4500)
+            try:msg=model.call(messages,[tool],{'type':'function','function':{'name':'organize_groups'}},max_tokens=4500)
+            except (ValueError,RuntimeError) as e:
+                if ('Model output incomplete: length' in str(e) or re.search(r'Model HTTP (?:413|502|503|504)',str(e))) and len(groups)>1:return split()
+                raise
             try:
-                specs=json.loads(msg['tool_calls'][0]['function']['arguments'])['groups'];by_id={s['id']:s for s in specs}
-                if len(specs)!=len(items) or set(by_id)!={x['id'] for x in items}:raise ValueError('Every group must be returned exactly once')
-                return [materialize_group(by_id[x['id']],g,evidence) for x,g in zip(items,groups)]
+                calls=msg.get('tool_calls',[])
+                if len(calls)!=1:raise ValueError('Expected one organize_groups tool call')
+                specs=json.loads(calls[0]['function']['arguments'])['groups'];by_id={s['id']:s for s in specs}
+                if len(specs)!=len(items) or set(by_id)!=set(expected):raise ValueError(json.dumps({'error':'Every group must be returned exactly once','expected_ids':expected,'missing':sorted(set(expected)-set(by_id)),'extra':sorted(set(by_id)-set(expected)),'duplicates':[sid for sid,n in Counter(s['id'] for s in specs).items() if n>1]},ensure_ascii=False))
+                result=[materialize_group(by_id[x['id']],g,evidence) for x,g in zip(items,groups)]
+                save_json(checkpoint,result);return result
             except (ValueError,KeyError,TypeError) as e:
-                if attempt==2:raise
-                messages.append(msg)
+                if attempt==2:
+                    if len(groups)>1:return split()
+                    raise
+                messages=base+[msg]
                 if not msg.get('tool_calls'):messages.append({'role':'user','content':'上次没有调用必需的工具，请调用 organize_groups 返回全部组/病害 ID 的结构化结果，禁止仅文字确认。'})
                 for c in msg.get('tool_calls',[]):messages.append({'role':'tool','tool_call_id':c['id'],'content':str(e)})
         raise RuntimeError('Group organization failed')
-    with concurrent.futures.ThreadPoolExecutor(max_workers=model.concurrency) as executor:parts=list(executor.map(run,range(0,len(grouped),12)))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=model.concurrency) as executor:parts=list(executor.map(run,range(0,len(grouped),6)))
     organized=[d for part in parts for d in part]
     final=[{**example,'part':g['part']} for g in organized for example in g['examples']] if style=='representative' else organized
     final=[dict(d) for d in final]

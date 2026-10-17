@@ -44,7 +44,9 @@ class Model:
                     raise RuntimeError('Model HTTP '+str(r.status_code)+': '+r.text[:400].replace(self.key,'<redacted>'))
                 d=r.json();choice_data=d['choices'][0];msg=choice_data['message'];finish=choice_data.get('finish_reason')
                 self.record({'cache':False,'key':key,'attempt':attempt+1,'seconds':round(time.monotonic()-start,3),'usage':d.get('usage',{}),'finish_reason':finish,'request_chars':len(json.dumps(messages,ensure_ascii=False))})
-                if finish in ('length','content_filter'):raise ValueError('Model output incomplete: '+str(finish))
+                if finish in ('length','content_filter'):
+                    save_json(self.work/'incomplete_calls'/(key+'.json'),{'request':payload,'message':msg,'usage':d.get('usage',{}),'finish_reason':finish})
+                    raise ValueError('Model output incomplete: '+str(finish))
                 if not msg.get('tool_calls') and not msg.get('content'):raise ValueError('Empty model message')
                 save_json(dest,{'request':payload,'message':msg,'usage':d.get('usage',{}),'finish_reason':finish})
                 return msg

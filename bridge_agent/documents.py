@@ -6,7 +6,7 @@ from lxml import etree, html
 
 NS = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
 W = '{'+NS['w']+'}'
-PARSER_VERSION = 5
+PARSER_VERSION = 6
 
 def digest(path):
     h = hashlib.sha256()
@@ -56,8 +56,9 @@ def docbook(path):
     if (bundled/'share/antiword').exists():env['ANTIWORDHOME']=str(bundled/'share/antiword')
     p=subprocess.run([binary,'-x','db',str(path)],capture_output=True,timeout=90,env=env)
     if p.returncode:
+        xml_error=p.stderr.decode('utf-8',errors='replace')[:1000]
         p=subprocess.run([binary,'-t','-w','0','-m','UTF-8.txt',str(path)],capture_output=True,timeout=90,env=env)
-        if p.returncode:raise RuntimeError('antiword text export failed')
+        if p.returncode:raise RuntimeError('antiword text export failed: '+xml_error+'; '+p.stderr.decode('utf-8',errors='replace')[:1000])
         return p.stdout.decode('utf-8')
     return etree.fromstring(p.stdout,etree.XMLParser(resolve_entities=False,no_network=True))
 
@@ -72,7 +73,14 @@ def parse(path, cache):
     def add(text, **meta):
         if text.strip(): blocks.append({'id':f'B{len(blocks)+1:06d}', 'text':text.strip(), 'section':section, **meta})
     cached_conversion=cache/sha/'converted.docx'
-    book=docbook(path) if fmt=='doc' and not cached_conversion.exists() else None
+    book=None;warnings=[]
+    if fmt=='doc' and not cached_conversion.exists():
+        try:book=docbook(path)
+        except (RuntimeError,OSError,subprocess.TimeoutExpired,etree.XMLSyntaxError) as e:
+            warnings.append(str(e))
+            try:converted(path,cache)
+            except (RuntimeError,OSError) as fallback:
+                raise RuntimeError(str(e)+'; LibreOffice fallback: '+str(fallback)) from fallback
     if isinstance(book,str):
         images=None;pending=[]
         def flush_rows():
@@ -185,6 +193,7 @@ def parse(path, cache):
             b['table_context']=contexts[tid]
     if not blocks: raise ValueError('No readable text; OCR required: '+path.name)
     data={'parser_version':PARSER_VERSION,'sha256':sha,'filename':path.name,'format':fmt,'backend':'antiword-text-tables' if isinstance(book,str) else 'antiword-docbook' if book is not None else 'html' if fmt=='html' else 'ooxml','pages_metadata':pages,'images':images,'paragraphs':paragraphs,'table_count':len(tables),'chars':sum(len(b['text']) for b in blocks),'blocks':blocks,'tables':tables,'parse_seconds':round(time.monotonic()-start,3),'locator':'paragraph/table/row in parsed export; page metadata is not a precise citation'}
+    data['parse_warnings']=warnings
     save_json(output,data);return data
 
 def search(blocks, query, limit=12, max_chars=18000):
