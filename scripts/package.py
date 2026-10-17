@@ -9,7 +9,7 @@ def build(root):
  root=Path(root);entries=[]
  for folder in ['bridge_agent','assets','tests','scripts','tools/antiword']:
   entries.extend((p,'code/'+str(p.relative_to(root))) for p in (root/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc')
- for name in ['requirements.txt','.env.example','README.md','THIRD_PARTY.md']:
+ for name in ['requirements.txt','.env.example','README.md','THIRD_PARTY.md','run_batch.sh','stop_batch.sh']:
   entries.append((root/name,'code/'+name))
  for name in ['DESIGN.md','开发文档.md','VALIDATION.md','PERFORMANCE.md']:
   entries.append((root/name,'design/'+name))

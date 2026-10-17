@@ -8,5 +8,6 @@ artifacts/
 赛题一_训练集/
 赛题一_训练集标签/
 初赛测试集/
+阶段1测试集/
 *.tar.gz
 tools/downloads/

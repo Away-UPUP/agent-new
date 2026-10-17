@@ -24,7 +24,40 @@ python -m bridge_agent run '初赛测试集/待处理.docx' --output result
 python -m bridge_agent batch 初赛测试集 --output result/初赛 --work work/competition --concurrency 4
 ```
 
-`--concurrency` 控制同一份报告内的模型请求并发，取值 1、2、4；批量报告依次执行，避免把两个层级的并发相乘。原文件不会被修改。每份报告以原文件名加“含有对比年度/无对比年度的信息提取报告.docx”输出；`batch_manifest.json` 记录成功与失败，任何失败都会让批处理返回非零退出码。
+### 决赛阶段1：一键后台处理4份报告
+
+在任意目录执行项目内的启动脚本即可；下面以项目根目录为例：
+
+```bash
+cd /data1/zwd/agent-new
+bash run_batch.sh
+```
+
+脚本读取项目 `.env`，同时启动最多 4 份报告；每份内部模型请求默认并发为 1，因此批次内模型请求并发上限为 4。这与下文原模块命令的单报告 `--concurrency` 不同。关闭终端后后台任务继续运行；重复启动会明确拒绝。现有模型配置直接沿用，不需要在脚本中填写密钥。
+
+```dotenv
+BATCH_INPUT_DIR=阶段1测试集
+BATCH_OUTPUT_DIR=result/阶段1
+BATCH_WORK_DIR=work/阶段1
+BATCH_WORKERS=4
+BATCH_REQUEST_CONCURRENCY=1
+```
+
+相对路径以 `agent-new` 为基准，也支持绝对路径；有空格的目录可在 `.env` 中使用双引号。递归读取 `.doc` / `.docx`，忽略 Word 的 `~$` 临时文件。输出目录和工作目录必须在输入目录外；同名文件主干会导致输出重名，预检时拒绝启动，避免覆盖。
+
+```bash
+bash run_batch.sh --dry-run   # 只检查目录、文件清单和配置，不调用模型
+bash run_batch.sh --status    # 查看成功、运行中、失败、待处理数量
+bash stop_batch.sh            # 停止本脚本启动的批次
+```
+
+启动时打印实际日志路径；日志和每次批次状态保存在 `work/batch_runner/<批次编号>/`。最近一批的状态为 `work/batch_runner/active.json`，输出目录内的 `batch_manifest.json` 逐份记录处理结果、错误和输出文件。某份失败后继续处理其他文件，全部结束后批次标记为 `succeeded` 或 `failed`。停止使用进程启动标识核对控制器和工作进程，只处理此批次，保留原文、已导出报告、分块检查点和历史日志。
+
+再次执行 `bash run_batch.sh` 会重新扫描目录，并让原有报告流程复用源文件、模型和代码均兼容的检查点；已经完成的任务不重新请求模型，最终 Word 会重新导出。已在服务端处理的请求不保证因客户端停止而取消。工作进程使用后台控制器管理，网页任务列表只显示网页上传任务；本批次进度用 `--status` 或日志查看。
+
+如果系统 `python` 不是项目使用的环境，可先设置 `INSPECTION_PYTHON=/绝对路径/bin/python`；此项为启动脚本使用的 shell 环境变量。
+
+原模块命令 `python -m bridge_agent batch` 的 `--concurrency` 控制同一份报告内的模型请求并发，取值 1、2、4，其批量文件依次执行；要同时处理4份文件请使用上面的 `run_batch.sh`。原文件不会被修改。每份报告以原文件名加“含有对比年度/无对比年度的信息提取报告.docx”输出；`batch_manifest.json` 记录成功与失败。原模块批处理有失败时返回非零退出码，后台脚本的最终状态则由 `--status` 或状态文件查询。
 
 重新执行同一命令会复用已完成的本地阶段。原始模型响应还可在相同 API 地址和完整请求载荷下跨任务精确复用，复用后重新执行当前版本校验；这不会读取标签答案。`INSPECTION_FRESH_RUN=1` 禁用跨任务响应复用；真正冷测还需使用新的 `--work` 目录。任务键含原文 SHA256、文件名、模型、API 地址、代码、标签规范和分块配置；这些变动会自动新建任务，不会混用不兼容结果。单任务锁阻止同一任务重复执行。失败任务保留已完成分块，修复接口后可以继续。
 
